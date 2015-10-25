@@ -58,7 +58,7 @@ void PrintMenu()
 	//...menu of options
 }
 void CallFunctions(int userQuery)
-{//FIX ME: Should call function here based on user input
+{
 
 	switch (userQuery) {
 	case 1:
