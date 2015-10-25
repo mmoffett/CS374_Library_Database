@@ -16,6 +16,12 @@ int main() {
 
 	return 0;
 }
+void PrintMenu()
+{
+	cout << "Choose an Option as a number only: " << endl;
+	//...menu of options
+}
+
 
 /*
 Function listProducts
