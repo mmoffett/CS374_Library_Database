@@ -21,6 +21,13 @@ void PrintMenu()
 	cout << "Choose an Option as a number only: " << endl;
 	//...menu of options
 }
+void CallFunctions(string userQuery)
+{//FIX ME: Should call function here based on user input
+	if (userQuery == "1")
+		cout << "1";
+	else if (userQuery == "2")
+		cout << "2";
+}
 
 
 /*
