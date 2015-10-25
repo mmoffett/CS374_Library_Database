@@ -3,16 +3,16 @@
 #include <sqlext.h>
 #include <iostream>
 #include <string>
-#include <vector>
 using namespace std;
 
 #define SQLSERVER
 
-std::vector<std::pair<std::string, std::string>> queries;
-
 const int MAX_DATA = 100; //will limit the size of the data retrieved, by limiting the number of characters allowed in a data char array
 void listProducts(float maxPrice);
-std::pair<std::string, std::string> GetQuery(int choice);
+string GetQuery(int choice);
+void PrintMenu();
+string CallFunctions(int choice);
+string ReadQuery(string s);
 
 int main() {
 	bool cont = true;
@@ -27,7 +27,7 @@ int main() {
 			cout << "Invalid input, try again!" << endl;
 			cin >> k;
 		}
-		char c;
+		char c = NULL;
 		while (c != 'n' || c != 'N') {
 			CallFunctions(k);
 			cout << "Do You want to complete another query (y/n)?" << endl;
@@ -49,7 +49,7 @@ void PrintMenu()
 	cout << "Choose an Option as a number only: " << endl;
 	//...menu of options
 }
-void CallFunctions(int userQuery)
+string CallFunctions(int userQuery)
 {//FIX ME: Should call function here based on user input
 	switch (userQuery) {
 	case 1:
@@ -100,7 +100,7 @@ void listProducts(float maxPrice) {
 #endif
 	cout << "Which query would you like to access? \n";
 	cin >> choice;
-	stSQL = GetQuery(choice).second; //calls GetQuery to get the string with the SQL query to be used
+	stSQL = ReadQuery(GetQuery(choice)); //calls GetQuery to get the string with the SQL query to be used
 
 							  //tries to connect to the database
 	rc = SQLDriverConnect(hdbc, NULL, (SQLCHAR *)stConnect.c_str(), stConnect.length(), szConnectOut, 1024, &cchConnect, SQL_DRIVER_NOPROMPT);
@@ -158,12 +158,11 @@ inner-joined through orders on employee id and company id (to the respective pri
 and keeping only the results with a shipping fee less than the shipping fee designated in the function parameter.
 The results are then placed in ascending order according to their shipping fee
 */
-std::pair<std::string, std::string> GetQuery(int choice) {
-	std::pair<std::string, std::string> query;
+string GetQuery(int choice) {
 	string stSQL;
 	string input;
 	switch (choice) {
-	case 1: // Adding an author
+	case 1:
 		stSQL = "Add_Author_NoPublisher ";
 		cout << "Enter Author First Name" << endl;
 		cin >> input;
@@ -172,9 +171,6 @@ std::pair<std::string, std::string> GetQuery(int choice) {
 		cout << "Enter Author Last Name" << endl;
 		cin >> input;
 		stSQL += input;
-
-		query.second = stSQL;
-		query.first = "#Added Author Without Publisher";
 		break;
 	case 2:
 		stSQL = "Add_Author_Publisher ";
@@ -189,24 +185,64 @@ std::pair<std::string, std::string> GetQuery(int choice) {
 		cout << "Enter Publisher: " << endl;
 		cin >> input;
 		stSQL += input;
-
-		query.second = stSQL;
-		query.first = "#Added Author With Publisher";
 		break;
 	case 3:
-		stSQL = "SELECT P.[Product Name] COUNT(*) ";
-		stSQL += "FROM Products AS P ";
-		stSQL += "WHERE P.Discontinued = 1; ";
+		stSQL = "Add_Book ";
+		cout << "Enter Author ID" << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter Genre ID" << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter Title " << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter Pages " << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter ISBN " << endl;
+		cin >> input;
+		stSQL += input;
 		break;
 	case 4:
-		stSQL = "SELECT P.[Product Name] ";
-		stSQL += "FROM Products AS P ";
-		stSQL += "WHERE P.[Product Name] LIKE '%Dried%'; ";
+		stSQL = "Add_USER ";
+		cout << "Enter User First Name" << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter User Last Name" << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter User Address " << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter User Phone " << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter User Email " << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter User Type " << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter User Drivers License " << endl;
+		cin >> input;
+		stSQL += input;
 		break;
 	case 5:
-		stSQL = "SELECT P.[Product Name] ";
-		stSQL += "FROM Products AS P ";
-		stSQL += "WHERE P.Category = 'Beverages' AND P.Discontinued = 0; ";
+		stSQL = "By_Author ";
+		cout << "Enter Author ID " << endl;
+		cin >> input;
+		stSQL += input;
 		break;
 	case 6:
 		stSQL = "SELECT O.[Ship Name] ";
