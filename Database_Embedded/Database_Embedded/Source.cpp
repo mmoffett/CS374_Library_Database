@@ -17,7 +17,6 @@ void listTables(int queryNum);
 pair<string, string> GetQuery(int choice);
 void PrintMenu();
 void CallFunctions(int choice);
-string ReadQuery(string s);
 
 int numColumns = 0;
 vector<string> columnVec;
@@ -30,15 +29,16 @@ int main() {
 		int k;
 		cin >> k;
 		//while (k != "1" && k != "2" && k != "3" && k != "4" && k != "5" && k != "6" && k != "7" && k != "8" && k != "9" && k != "10")//FIX ME: Based on number of queries we have
-		while (k < 10 /*number of queries*/)
+		while (k > 10 /*number of queries*/)
 		{
 			cout << "Invalid input, try again!" << endl;
 			cin >> k;
 		}
 		char c = NULL;
-		while (c != 'n' || c != 'N') {
+		while (c != 'n' && c != 'N') {
 			CallFunctions(k);
 			cout << "Do You want to complete another query (y/n)?" << endl;
+			cin >> c;
 			while (c != 'y' && c != 'n' && c != 'N' && c != 'Y')
 			{
 				cout << "Invalid input, try again!" << endl;
@@ -46,7 +46,7 @@ int main() {
 			}
 		}
 
-		if (c == 'n')
+		if (c == 'n' || c== 'N')
 			cont = false;
 	}
 
@@ -124,7 +124,7 @@ void listTables(int queryNum) {
 	string stConnect = "Driver={SQL Server};Server=CS1;";
 	stConnect += "Database=Silence_in_the_Library;Trusted_Connection=yes;";
 #endif
-	stSQL = ReadQuery(GetQuery(queryNum).second); //calls GetQuery to get the string with the SQL query to be used
+	stSQL = GetQuery(queryNum).second; //calls GetQuery to get the string with the SQL query to be used
 	string temp = GetQuery(queryNum).first;
 
 	if (temp[0] == '#') {
@@ -146,7 +146,7 @@ void listTables(int queryNum) {
 
 	numColumns = atoi(columnVec[0].c_str());
 
-							  //tries to connect to the database
+	//tries to connect to the database
 	rc = SQLDriverConnect(hdbc, NULL, (SQLCHAR *)stConnect.c_str(), stConnect.length(), szConnectOut, 1024, &cchConnect, SQL_DRIVER_NOPROMPT);
 	//if the connection was not successful, print an error code and end the program
 	if (!(rc == SQL_SUCCESS || rc == SQL_SUCCESS_WITH_INFO))
@@ -252,11 +252,11 @@ pair<string, string> GetQuery(int choice) {
 		break;
 	case 2:
 		stSQL = "Add_Author_Publisher ";
-		cout << "Enter Author First Name"<<endl;
+		cout << "Enter Author First Name" << endl;
 		cin >> input;
 		stSQL += input;
 		stSQL += ", ";
-		cout << "Enter Author Last Name"<<endl;
+		cout << "Enter Author Last Name" << endl;
 		cin >> input;
 		stSQL += input;
 		stSQL += ", ";
@@ -359,7 +359,7 @@ pair<string, string> GetQuery(int choice) {
 		break;
 	}
 	return query;
-	
+
 
 }
 /*string stSQL = "SELECT C.Company, E.[Last Name] ";
