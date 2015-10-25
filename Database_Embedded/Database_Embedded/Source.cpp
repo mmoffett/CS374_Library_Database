@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <iomanip>
 using namespace std;
 
 #define SQLSERVER
@@ -77,7 +78,7 @@ Function listProducts
 Prints the query and results of the query specified by the function GetQuery
 return is void
 */
-void listProducts(float maxPrice) {
+void listTables() {
 	//sets up all of the objects needed to access a database
 	RETCODE rc;
 	HENV henv;
@@ -86,10 +87,7 @@ void listProducts(float maxPrice) {
 	char szData[MAX_DATA];
 	string stSQL;
 	SDWORD cbData;
-	char szPrice[10];
 	int choice;
-
-	_gcvt_s(szPrice, 10, maxPrice, 6); //converts the floating point value maxPrice to a string szPrice
 
 	SQLAllocEnv(&henv);
 	SQLAllocConnect(henv, &hdbc);
@@ -111,8 +109,23 @@ void listProducts(float maxPrice) {
 	string temp = GetQuery(choice).first;
 
 	if (temp[0] == '#') {
-		// There are no columns
+		// There are no columns, the query inserted something
 	}
+	else {
+		for (int i = 0; i < temp.length(); i++) {
+			if (temp[i] == '~') {
+				temp[i] = ' ';
+			}
+		}
+	}
+
+	stringstream ss(temp);
+	string t;
+	while (ss >> t) {
+		columnVec.push_back(t);
+	}
+
+	numColumns = atoi(columnVec[0].c_str());
 
 							  //tries to connect to the database
 	rc = SQLDriverConnect(hdbc, NULL, (SQLCHAR *)stConnect.c_str(), stConnect.length(), szConnectOut, 1024, &cchConnect, SQL_DRIVER_NOPROMPT);
@@ -138,20 +151,48 @@ void listProducts(float maxPrice) {
 		cout << error << endl;
 		exit(0);
 	}
-	//if the query succeded, print the data from each of the first two columns of the query result, until all of the query result rows have been printed
-	while (rc == SQL_SUCCESS) {
-		rc = SQLFetch(hstmt);
-		if (SQLGetData(hstmt, 1, SQL_C_CHAR, szData, sizeof(szData), &cbData) == SQL_SUCCESS)
-			//cout << "'" << szData << "'" << " ordered from ";
-			cout << szData << "\t";
-		if (SQLGetData(hstmt, 2, SQL_C_CHAR, szData, sizeof(szData), &cbData) == SQL_SUCCESS)
-			cout << szData << "\t";
-		if (SQLGetData(hstmt, 3, SQL_C_CHAR, szData, sizeof(szData), &cbData) == SQL_SUCCESS)
-			cout << szData << "\t";
-		if (SQLGetData(hstmt, 4, SQL_C_CHAR, szData, sizeof(szData), &cbData) == SQL_SUCCESS)
-			cout << szData << "\t";
-		cout << endl;
+
+
+
+	cout << fixed;
+	cout << setprecision(2);
+
+	int curr = 0;
+	for (int i = 1; i <= numColumns; i++) {
+		if (i == 1) {
+			cout << left << setw(40) << columnVec[i];
+		}
+		else {
+			cout << right << setw(40) << columnVec[i];
+		}
 	}
+
+
+	cout << endl << endl;
+	while (rc == SQL_SUCCESS) {
+
+		rc = SQLFetch(hstmt);
+		bool first = true;
+		while (curr <= numColumns) {
+			if (SQLGetData(hstmt, curr++, SQL_C_CHAR, szData, sizeof(szData), &cbData) == SQL_SUCCESS) {
+				if (first) {
+					std::cout << std::left << std::setw(40) << szData;
+					first = false;
+				}
+				else {
+					std::cout << std::right << std::setw(40) << szData;
+				}
+
+			}
+
+		}
+
+		curr = 0;
+		std::cout << std::endl;
+	}
+
+	std::cout << "\n\n\n\n";
+
 	//Cleanup the complex data structures that were initialized
 	SQLFreeStmt(hstmt, SQL_DROP);
 	SQLDisconnect(hdbc);
