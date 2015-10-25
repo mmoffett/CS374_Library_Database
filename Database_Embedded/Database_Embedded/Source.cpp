@@ -13,11 +13,10 @@ using namespace std;
 
 
 const int MAX_DATA = 100; //will limit the size of the data retrieved, by limiting the number of characters allowed in a data char array
-void listProducts(float maxPrice);
+void listTables(int queryNum);
 pair<string, string> GetQuery(int choice);
 void PrintMenu();
-string CallFunctions(int choice);
-string ReadQuery(string s);
+void CallFunctions(int choice);
 
 int numColumns = 0;
 vector<string> columnVec;
@@ -30,15 +29,16 @@ int main() {
 		int k;
 		cin >> k;
 		//while (k != "1" && k != "2" && k != "3" && k != "4" && k != "5" && k != "6" && k != "7" && k != "8" && k != "9" && k != "10")//FIX ME: Based on number of queries we have
-		while (k < 10 /*number of queries*/)
+		while (k > 10 /*number of queries*/)
 		{
 			cout << "Invalid input, try again!" << endl;
 			cin >> k;
 		}
 		char c = NULL;
-		while (c != 'n' || c != 'N') {
+		while (c != 'n' && c != 'N') {
 			CallFunctions(k);
 			cout << "Do You want to complete another query (y/n)?" << endl;
+			cin >> c;
 			while (c != 'y' && c != 'n' && c != 'N' && c != 'Y')
 			{
 				cout << "Invalid input, try again!" << endl;
@@ -46,7 +46,7 @@ int main() {
 			}
 		}
 
-		if (c == 'n')
+		if (c == 'n' || c== 'N')
 			cont = false;
 	}
 
@@ -57,14 +57,36 @@ void PrintMenu()
 	cout << "Choose an Option as a number only: " << endl;
 	//...menu of options
 }
-string CallFunctions(int userQuery)
-{//FIX ME: Should call function here based on user input
+void CallFunctions(int userQuery)
+{
+
 	switch (userQuery) {
 	case 1:
-
+		listTables(userQuery);
 		break;
 	case 2:
-
+		listTables(userQuery);
+		break;
+	case 3:
+		listTables(userQuery);
+		break;
+	case 4:
+		listTables(userQuery);
+		break;
+	case 5:
+		listTables(userQuery);
+		break;
+	case 6:
+		listTables(userQuery);
+		break;
+	case 7:
+		listTables(userQuery);
+		break;
+	case 8:
+		listTables(userQuery);
+		break;
+	case 9:
+		listTables(userQuery);
 		break;
 		/*up to case n, where n exists in the positive integers */
 	default: cout << "Invalid selection, please re-select.\n";
@@ -78,7 +100,7 @@ Function listProducts
 Prints the query and results of the query specified by the function GetQuery
 return is void
 */
-void listTables() {
+void listTables(int queryNum) {
 	//sets up all of the objects needed to access a database
 	RETCODE rc;
 	HENV henv;
@@ -87,7 +109,6 @@ void listTables() {
 	char szData[MAX_DATA];
 	string stSQL;
 	SDWORD cbData;
-	int choice;
 
 	SQLAllocEnv(&henv);
 	SQLAllocConnect(henv, &hdbc);
@@ -103,10 +124,8 @@ void listTables() {
 	string stConnect = "Driver={SQL Server};Server=CS1;";
 	stConnect += "Database=Silence_in_the_Library;Trusted_Connection=yes;";
 #endif
-	cout << "Which query would you like to access? \n";
-	cin >> choice;
-	stSQL = ReadQuery(GetQuery(choice).second); //calls GetQuery to get the string with the SQL query to be used
-	string temp = GetQuery(choice).first;
+	stSQL = GetQuery(queryNum).second; //calls GetQuery to get the string with the SQL query to be used
+	string temp = GetQuery(queryNum).first;
 
 	if (temp[0] == '#') {
 		// There are no columns, the query inserted something
@@ -127,7 +146,7 @@ void listTables() {
 
 	numColumns = atoi(columnVec[0].c_str());
 
-							  //tries to connect to the database
+	//tries to connect to the database
 	rc = SQLDriverConnect(hdbc, NULL, (SQLCHAR *)stConnect.c_str(), stConnect.length(), szConnectOut, 1024, &cchConnect, SQL_DRIVER_NOPROMPT);
 	//if the connection was not successful, print an error code and end the program
 	if (!(rc == SQL_SUCCESS || rc == SQL_SUCCESS_WITH_INFO))
@@ -213,6 +232,8 @@ The results are then placed in ascending order according to their shipping fee
 */
 pair<string, string> GetQuery(int choice) {
 	pair<string, string> query;
+	query.first = "";
+	query.second = "";
 	string stSQL;
 	string input;
 	switch (choice) {
@@ -231,11 +252,11 @@ pair<string, string> GetQuery(int choice) {
 		break;
 	case 2:
 		stSQL = "Add_Author_Publisher ";
-		cout << "Enter Author First Name"<<endl;
+		cout << "Enter Author First Name" << endl;
 		cin >> input;
 		stSQL += input;
 		stSQL += ", ";
-		cout << "Enter Author Last Name"<<endl;
+		cout << "Enter Author Last Name" << endl;
 		cin >> input;
 		stSQL += input;
 		stSQL += ", ";
@@ -338,6 +359,8 @@ pair<string, string> GetQuery(int choice) {
 		break;
 	}
 	return query;
+
+
 }
 /*string stSQL = "SELECT C.Company, E.[Last Name] ";
 stSQL += "FROM Customers C, Employees E, Orders O ";
