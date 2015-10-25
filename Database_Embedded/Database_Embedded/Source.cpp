@@ -12,10 +12,54 @@ void listProducts(float maxPrice);
 string GetQuery(int choice);
 
 int main() {
-	listProducts(20.5);
+	bool cont = true;
+	while (cont == true)
+	{
+		PrintMenu();
+		int k;
+		cin >> k;
+		//while (k != "1" && k != "2" && k != "3" && k != "4" && k != "5" && k != "6" && k != "7" && k != "8" && k != "9" && k != "10")//FIX ME: Based on number of queries we have
+		while (k < 10 /*number of queries*/)
+		{
+			cout << "Invalid input, try again!" << endl;
+			cin >> k;
+		}
+		char c;
+		while (c != 'n' || c != 'N') {
+			CallFunctions(k);
+			cout << "Do You want to complete another query (y/n)?" << endl;
+			while (c != 'y' && c != 'n' && c != 'N' && c != 'Y')
+			{
+				cout << "Invalid input, try again!" << endl;
+				cin >> c;
+			}
+		}
+
+		if (c == 'n')
+			cont = false;
+	}
 
 	return 0;
 }
+void PrintMenu()
+{
+	cout << "Choose an Option as a number only: " << endl;
+	//...menu of options
+}
+void CallFunctions(int userQuery)
+{//FIX ME: Should call function here based on user input
+	switch (userQuery) {
+	case 1:
+
+		break;
+	case 2:
+
+		break;
+		/*up to case n, where n exists in the positive integers */
+	default: cout << "Invalid selection, please re-select.\n";
+	}
+}
+
 
 /*
 Function listProducts
