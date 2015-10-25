@@ -7,9 +7,11 @@ using namespace std;
 
 #define SQLSERVER
 
+
+
 const int MAX_DATA = 100; //will limit the size of the data retrieved, by limiting the number of characters allowed in a data char array
 void listProducts(float maxPrice);
-string GetQuery(int choice);
+pair<string, string> GetQuery(int choice);
 void PrintMenu();
 void CallFunctions(int choice); // possibly string depending on implementation
 string ReadQuery(string s);
@@ -105,8 +107,7 @@ void listProducts(float maxPrice) {
 #endif
 	cout << "Which query would you like to access? \n";
 	cin >> choice;
-	stSQL = GetQuery(choice); //calls GetQuery to get the string with the SQL query to be used
-	//stSQL = ReadQuery(GetQuery(choice));
+	stSQL = ReadQuery(GetQuery(choice)); //calls GetQuery to get the string with the SQL query to be used
 
 							  //tries to connect to the database
 	rc = SQLDriverConnect(hdbc, NULL, (SQLCHAR *)stConnect.c_str(), stConnect.length(), szConnectOut, 1024, &cchConnect, SQL_DRIVER_NOPROMPT);
@@ -164,7 +165,8 @@ inner-joined through orders on employee id and company id (to the respective pri
 and keeping only the results with a shipping fee less than the shipping fee designated in the function parameter.
 The results are then placed in ascending order according to their shipping fee
 */
-string GetQuery(int choice) {
+pair<string, string> GetQuery(int choice) {
+	pair<string, string> query;
 	string stSQL;
 	string input;
 	switch (choice) {
@@ -177,6 +179,9 @@ string GetQuery(int choice) {
 		cout << "Enter Author Last Name" << endl;
 		cin >> input;
 		stSQL += input;
+
+		query.first = "#Added Author Without Publisher";
+		query.second = stSQL;
 		break;
 	case 2:
 		stSQL = "Add_Author_Publisher ";
@@ -191,6 +196,9 @@ string GetQuery(int choice) {
 		cout << "Enter Publisher: " << endl;
 		cin >> input;
 		stSQL += input;
+
+		query.first = "#Added Author With Publisher";
+		query.second = stSQL;
 		break;
 	case 3:
 		stSQL = "Add_Book ";
@@ -213,6 +221,9 @@ string GetQuery(int choice) {
 		cout << "Enter ISBN " << endl;
 		cin >> input;
 		stSQL += input;
+
+		query.first = "#Added Book";
+		query.second = stSQL;
 		break;
 	case 4:
 		stSQL = "Add_USER ";
@@ -243,11 +254,15 @@ string GetQuery(int choice) {
 		cout << "Enter User Drivers License " << endl;
 		cin >> input;
 		stSQL += input;
+
+		query.first = "#Added User";
+		query.second = stSQL;
 		break;
 	case 5:
-		stSQL = "SELECT P.[Product Name] ";
-		stSQL += "FROM Products AS P ";
-		stSQL += "WHERE P.Category = 'Beverages' AND P.Discontinued = 0; ";
+		stSQL = "By_Author ";
+		cout << "Enter Author ID " << endl;
+		cin >> input;
+		stSQL += input;
 		break;
 	case 6:
 		stSQL = "SELECT O.[Ship Name] ";
