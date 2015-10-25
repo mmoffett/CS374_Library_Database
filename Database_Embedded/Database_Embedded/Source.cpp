@@ -60,10 +60,34 @@ string CallFunctions(int userQuery)
 {//FIX ME: Should call function here based on user input
 	switch (userQuery) {
 	case 1:
-
+		GetQuery(userQuery);
 		break;
 	case 2:
-
+		GetQuery(userQuery);
+		break;
+	case 3:
+		GetQuery(userQuery);
+		break;
+	case 4:
+		GetQuery(userQuery);
+		break;
+	case 5:
+		GetQuery(userQuery);
+		break;
+	case 6:
+		GetQuery(userQuery);
+		break;
+	case 7:
+		GetQuery(userQuery);
+		break;
+	case 8:
+		GetQuery(userQuery);
+		break;
+	case 9:
+		GetQuery(userQuery);
+		break;
+	case 10:
+		GetQuery(userQuery);
 		break;
 		/*up to case n, where n exists in the positive integers */
 	default: cout << "Invalid selection, please re-select.\n";
@@ -107,12 +131,8 @@ void listProducts(float maxPrice) {
 #endif
 	cout << "Which query would you like to access? \n";
 	cin >> choice;
-	stSQL = ReadQuery(GetQuery(choice).second); //calls GetQuery to get the string with the SQL query to be used
-	string temp = GetQuery(choice).first;
-
-	if (temp[0] == '#') {
-		// There are no columns
-	}
+	stSQL = GetQuery(choice); //calls GetQuery to get the string with the SQL query to be used
+	//stSQL = ReadQuery(GetQuery(choice));
 
 							  //tries to connect to the database
 	rc = SQLDriverConnect(hdbc, NULL, (SQLCHAR *)stConnect.c_str(), stConnect.length(), szConnectOut, 1024, &cchConnect, SQL_DRIVER_NOPROMPT);
