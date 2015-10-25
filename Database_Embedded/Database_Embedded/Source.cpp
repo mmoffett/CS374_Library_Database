@@ -12,7 +12,30 @@ void listProducts(float maxPrice);
 string GetQuery(int choice);
 
 int main() {
-	listProducts(20.5);
+	bool cont = true;
+	while (cont == true)
+	{
+		PrintMenu();
+		string k;
+		cin >> k;
+		while (k != "1" && k != "2" && k != "3" && k != "4" && k != "5" && k != "6" && k != "7" && k != "8" && k != "9" && k != "10")//FIX ME: Based on number of queries we have
+		{
+			cout << "Invalid input, try again!" << endl;
+			cin >> k;
+		}
+
+		CallFunctions(k);
+		cout << "Do You want to complete another query (y/n)?" << endl;
+		string c;
+		cin >> c;
+		while (c != "y"&&c != "n")
+		{
+			cout << "Invalid input, try again!" << endl;
+			cin >> c;
+		}
+		if (c == "n")
+			cont = false;
+	}
 
 	return 0;
 }
