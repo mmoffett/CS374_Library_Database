@@ -3,6 +3,8 @@
 #include <sqlext.h>
 #include <iostream>
 #include <string>
+#include <vector>
+#include <sstream>
 using namespace std;
 
 #define SQLSERVER
@@ -13,8 +15,11 @@ const int MAX_DATA = 100; //will limit the size of the data retrieved, by limiti
 void listProducts(float maxPrice);
 pair<string, string> GetQuery(int choice);
 void PrintMenu();
-void CallFunctions(int choice); // possibly string depending on implementation
+string CallFunctions(int choice);
 string ReadQuery(string s);
+
+int numColumns = 0;
+vector<string> columnVec;
 
 int main() {
 	bool cont = true;
@@ -24,28 +29,23 @@ int main() {
 		int k;
 		cin >> k;
 		//while (k != "1" && k != "2" && k != "3" && k != "4" && k != "5" && k != "6" && k != "7" && k != "8" && k != "9" && k != "10")//FIX ME: Based on number of queries we have
-		while (k > 10 /*number of queries*/)
+		while (k < 10 /*number of queries*/)
 		{
 			cout << "Invalid input, try again!" << endl;
-			cin.ignore();
-			cin.clear();
 			cin >> k;
 		}
 		char c = NULL;
-		while (c != 'n' && c != 'N') {
+		while (c != 'n' || c != 'N') {
 			CallFunctions(k);
 			cout << "Do You want to complete another query (y/n)?" << endl;
-			cin >> c;
 			while (c != 'y' && c != 'n' && c != 'N' && c != 'Y')
 			{
 				cout << "Invalid input, try again!" << endl;
-				cin.ignore();
-				cin.clear();
 				cin >> c;
 			}
 		}
 
-		if (c == 'n' || c == 'N')
+		if (c == 'n')
 			cont = false;
 	}
 
@@ -56,7 +56,7 @@ void PrintMenu()
 	cout << "Choose an Option as a number only: " << endl;
 	//...menu of options
 }
-void CallFunctions(int userQuery) // possibly string depending on implementation
+string CallFunctions(int userQuery)
 {//FIX ME: Should call function here based on user input
 	switch (userQuery) {
 	case 1:
@@ -107,7 +107,12 @@ void listProducts(float maxPrice) {
 #endif
 	cout << "Which query would you like to access? \n";
 	cin >> choice;
-	stSQL = ReadQuery(GetQuery(choice)); //calls GetQuery to get the string with the SQL query to be used
+	stSQL = ReadQuery(GetQuery(choice).second); //calls GetQuery to get the string with the SQL query to be used
+	string temp = GetQuery(choice).first;
+
+	if (temp[0] == '#') {
+		// There are no columns
+	}
 
 							  //tries to connect to the database
 	rc = SQLDriverConnect(hdbc, NULL, (SQLCHAR *)stConnect.c_str(), stConnect.length(), szConnectOut, 1024, &cchConnect, SQL_DRIVER_NOPROMPT);
@@ -291,7 +296,7 @@ pair<string, string> GetQuery(int choice) {
 		cout << "Invalid input, will now exit...\n";
 		break;
 	}
-	return stSQL;
+	return query;
 }
 /*string stSQL = "SELECT C.Company, E.[Last Name] ";
 stSQL += "FROM Customers C, Employees E, Orders O ";
