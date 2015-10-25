@@ -16,24 +16,26 @@ int main() {
 	while (cont == true)
 	{
 		PrintMenu();
-		string k;
+		int k;
 		cin >> k;
-		while (k != "1" && k != "2" && k != "3" && k != "4" && k != "5" && k != "6" && k != "7" && k != "8" && k != "9" && k != "10")//FIX ME: Based on number of queries we have
+		//while (k != "1" && k != "2" && k != "3" && k != "4" && k != "5" && k != "6" && k != "7" && k != "8" && k != "9" && k != "10")//FIX ME: Based on number of queries we have
+		while (k < 10 /*number of queries*/)
 		{
 			cout << "Invalid input, try again!" << endl;
 			cin >> k;
 		}
-
-		CallFunctions(k);
-		cout << "Do You want to complete another query (y/n)?" << endl;
-		string c;
-		cin >> c;
-		while (c != "y"&&c != "n")
-		{
-			cout << "Invalid input, try again!" << endl;
-			cin >> c;
+		char c;
+		while (c != 'n' || c != 'N') {
+			CallFunctions(k);
+			cout << "Do You want to complete another query (y/n)?" << endl;
+			while (c != 'y' && c != 'n' && c != 'N' && c != 'Y')
+			{
+				cout << "Invalid input, try again!" << endl;
+				cin >> c;
+			}
 		}
-		if (c == "n")
+
+		if (c == 'n')
 			cont = false;
 	}
 
@@ -44,12 +46,18 @@ void PrintMenu()
 	cout << "Choose an Option as a number only: " << endl;
 	//...menu of options
 }
-void CallFunctions(string userQuery)
+void CallFunctions(int userQuery)
 {//FIX ME: Should call function here based on user input
-	if (userQuery == "1")
-		cout << "1";
-	else if (userQuery == "2")
-		cout << "2";
+	switch (userQuery) {
+	case 1:
+
+		break;
+	case 2:
+
+		break;
+		/*up to case n, where n exists in the positive integers */
+	default: cout << "Invalid selection, please re-select.\n";
+	}
 }
 
 
