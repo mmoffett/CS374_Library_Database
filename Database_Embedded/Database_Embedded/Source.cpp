@@ -30,8 +30,6 @@ int main() {
 		cin >> k;
 		while (k > 10 /*number of queries*/)
 		{
-			//cin.clear();
-			//cin.ignore(INT_MAX);
 			cout << "Invalid input, try again!" << endl;
 			cin >> k;
 		}
@@ -111,8 +109,8 @@ void CallFunctions(int userQuery)
 
 
 /*
-Function listProducts
-@param maxPrice the maximum shipping cost that will be passed to the function that builds a query (will be passed to GetQuery)
+Function listTables
+@param queryNum the query selected by the user to be passed into GetQuery
 Prints the query and results of the query specified by the function GetQuery
 return is void
 */
