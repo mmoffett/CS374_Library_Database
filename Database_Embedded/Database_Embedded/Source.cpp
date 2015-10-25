@@ -3,13 +3,16 @@
 #include <sqlext.h>
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 #define SQLSERVER
 
+std::vector<std::pair<std::string, std::string>> queries;
+
 const int MAX_DATA = 100; //will limit the size of the data retrieved, by limiting the number of characters allowed in a data char array
 void listProducts(float maxPrice);
-string GetQuery(int choice);
+std::pair<std::string, std::string> GetQuery(int choice);
 
 int main() {
 	bool cont = true;
@@ -97,7 +100,7 @@ void listProducts(float maxPrice) {
 #endif
 	cout << "Which query would you like to access? \n";
 	cin >> choice;
-	stSQL = GetQuery(choice); //calls GetQuery to get the string with the SQL query to be used
+	stSQL = GetQuery(choice).second; //calls GetQuery to get the string with the SQL query to be used
 
 							  //tries to connect to the database
 	rc = SQLDriverConnect(hdbc, NULL, (SQLCHAR *)stConnect.c_str(), stConnect.length(), szConnectOut, 1024, &cchConnect, SQL_DRIVER_NOPROMPT);
@@ -155,11 +158,12 @@ inner-joined through orders on employee id and company id (to the respective pri
 and keeping only the results with a shipping fee less than the shipping fee designated in the function parameter.
 The results are then placed in ascending order according to their shipping fee
 */
-string GetQuery(int choice) {
+std::pair<std::string, std::string> GetQuery(int choice) {
+	std::pair<std::string, std::string> query;
 	string stSQL;
 	string input;
 	switch (choice) {
-	case 1:
+	case 1: // Adding an author
 		stSQL = "Add_Author_NoPublisher ";
 		cout << "Enter Author First Name" << endl;
 		cin >> input;
@@ -168,6 +172,9 @@ string GetQuery(int choice) {
 		cout << "Enter Author Last Name" << endl;
 		cin >> input;
 		stSQL += input;
+
+		query.second = stSQL;
+		query.first = "#Added Author Without Publisher";
 		break;
 	case 2:
 		stSQL = "Add_Author_Publisher ";
@@ -182,6 +189,9 @@ string GetQuery(int choice) {
 		cout << "Enter Publisher: " << endl;
 		cin >> input;
 		stSQL += input;
+
+		query.second = stSQL;
+		query.first = "#Added Author With Publisher";
 		break;
 	case 3:
 		stSQL = "SELECT P.[Product Name] COUNT(*) ";
