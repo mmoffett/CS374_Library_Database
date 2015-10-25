@@ -184,9 +184,26 @@ string GetQuery(int choice) {
 		stSQL += input;
 		break;
 	case 3:
-		stSQL = "SELECT P.[Product Name] COUNT(*) ";
-		stSQL += "FROM Products AS P ";
-		stSQL += "WHERE P.Discontinued = 1; ";
+		stSQL = "Add_Book ";
+		cout << "Enter Author ID" << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter Genre ID" << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Title " << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Pages " << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "ISBN " << endl;
+		cin >> input;
+		stSQL += input;
 		break;
 	case 4:
 		stSQL = "SELECT P.[Product Name] ";
