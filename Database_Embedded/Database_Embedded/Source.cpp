@@ -55,6 +55,24 @@ int main() {
 void PrintMenu()
 {
 	cout << "Choose an Option as a number only: " << endl;
+	cout << left << "1: Add author without publisher" << endl;
+	cout << left << "2: Add author with publisher" << endl;
+
+	cout << left << "0: Search for a book by the title" << endl;
+	cout << left << "1: Return all the books in the library" << endl;
+	cout << left << "2: See what books are overdue" << endl;
+	cout << left << "3: Get info for user by library card id" << endl;
+	cout << left << "4: Search for books by genre" << endl;
+	cout << left << "5: Search for books by author" << endl;
+	cout << left << "6: Get the author of a book by title" << endl;
+	cout << left << "7: List damages to a book by title" << endl;
+	cout << left << "8: List all unpaid fines" << endl;
+	cout << left << "9:"
+
+
+
+
+
 	//...menu of options
 }
 void CallFunctions(int userQuery)
