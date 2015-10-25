@@ -149,14 +149,31 @@ The results are then placed in ascending order according to their shipping fee
 */
 string GetQuery(int choice) {
 	string stSQL;
+	string input;
 	switch (choice) {
 	case 1:
-		stSQL = "SELECT * ";
-		stSQL += "FROM Book; ";
+		stSQL = "Add_Author_NoPublisher ";
+		cout << "Enter Author First Name" << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter Author Last Name" << endl;
+		cin >> input;
+		stSQL += input;
 		break;
 	case 2:
-		stSQL = "SELECT MAX(P.[Target Level]), MIN(P.[Target Level]), AVG(P.[Target Level]) ";
-		stSQL += "FROM Products AS P; ";
+		stSQL = "Add_Author_Publisher ";
+		cout << "Enter Author First Name"<<endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter Author Last Name"<<endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter Publisher: " << endl;
+		cin >> input;
+		stSQL += input;
 		break;
 	case 3:
 		stSQL = "SELECT P.[Product Name] COUNT(*) ";
