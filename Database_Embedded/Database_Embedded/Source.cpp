@@ -31,6 +31,8 @@ int main() {
 		//while (k != "1" && k != "2" && k != "3" && k != "4" && k != "5" && k != "6" && k != "7" && k != "8" && k != "9" && k != "10")//FIX ME: Based on number of queries we have
 		while (k > 10 /*number of queries*/)
 		{
+			//cin.clear();
+			//cin.ignore(INT_MAX);
 			cout << "Invalid input, try again!" << endl;
 			cin >> k;
 		}
@@ -38,10 +40,14 @@ int main() {
 		while (c != 'n' && c != 'N') {
 			CallFunctions(k);
 			cout << "Do You want to complete another query (y/n)?" << endl;
+			//cin.clear();
+			//cin.ignore(INT_MAX);
 			cin >> c;
 			while (c != 'y' && c != 'n' && c != 'N' && c != 'Y')
 			{
 				cout << "Invalid input, try again!" << endl;
+				//cin.clear();
+				//cin.ignore(INT_MAX);
 				cin >> c;
 			}
 		}
@@ -124,8 +130,9 @@ void listTables(int queryNum) {
 	string stConnect = "Driver={SQL Server};Server=CS1;";
 	stConnect += "Database=Silence_in_the_Library;Trusted_Connection=yes;";
 #endif
-	stSQL = GetQuery(queryNum).second; //calls GetQuery to get the string with the SQL query to be used
-	string temp = GetQuery(queryNum).first;
+	pair<string, string> query = GetQuery(queryNum);
+	stSQL = query.second; //calls GetQuery to get the string with the SQL query to be used
+	string temp = query.first;
 
 	if (temp[0] == '#') {
 		// There are no columns, the query inserted something
@@ -230,7 +237,7 @@ inner-joined through orders on employee id and company id (to the respective pri
 and keeping only the results with a shipping fee less than the shipping fee designated in the function parameter.
 The results are then placed in ascending order according to their shipping fee
 */
-pair<string, string> GetQuery(int choice) {
+pair<string, string> GetQuery(int choice) { // maybe do some NULL exception handling for not NULL values
 	pair<string, string> query;
 	query.first = "";
 	query.second = "";
