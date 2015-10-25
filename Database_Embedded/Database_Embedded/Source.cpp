@@ -28,7 +28,6 @@ int main() {
 		PrintMenu();
 		int k;
 		cin >> k;
-		//while (k != "1" && k != "2" && k != "3" && k != "4" && k != "5" && k != "6" && k != "7" && k != "8" && k != "9" && k != "10")//FIX ME: Based on number of queries we have
 		while (k > 10 /*number of queries*/)
 		{
 			//cin.clear();
@@ -40,14 +39,10 @@ int main() {
 		while (c != 'n' && c != 'N') {
 			CallFunctions(k);
 			cout << "Do You want to complete another query (y/n)?" << endl;
-			//cin.clear();
-			//cin.ignore(INT_MAX);
 			cin >> c;
 			while (c != 'y' && c != 'n' && c != 'N' && c != 'Y')
 			{
 				cout << "Invalid input, try again!" << endl;
-				//cin.clear();
-				//cin.ignore(INT_MAX);
 				cin >> c;
 			}
 		}
@@ -73,7 +68,7 @@ void PrintMenu()
 	cout << left << "6: Get the author of a book by title" << endl;
 	cout << left << "7: List damages to a book by title" << endl;
 	cout << left << "8: List all unpaid fines" << endl;
-	cout << left << "9:"
+	cout << left << "9:";
 
 
 
@@ -140,11 +135,8 @@ void listTables(int queryNum) {
 	SQLCHAR szConnectOut[1024];
 	SQLSMALLINT cchConnect;
 
-	//Why is the database type chosen with a preprocessor instruction instead of a normal if clause? What if I want to aceder a multiple types of databases?
-	//It is not possible to change this at runtime, so I need to hardcode which type of database I will be using
-	//FIXME: Need to change the database location address for each machine this is on
-#ifdef SQLSERVER
-	//Check out http://www.devlist.com/ConnectionStringsPage.aspx for example connection strings
+	
+#ifdef SQLSERVER //connects us to our server if it can
 	string stConnect = "Driver={SQL Server};Server=CS1;";
 	stConnect += "Database=Silence_in_the_Library;Trusted_Connection=yes;";
 #endif
@@ -246,14 +238,9 @@ void listTables(int queryNum) {
 
 /*
 Function GetQuery
-@param szFee the maximum shipping cost
+@param choice query selected by user
 @return a string containing the SQL for the query
 
-This Query, when executed will retrieve the name of the company and the last name of the employee
-using the employee, company, and order databases,
-inner-joined through orders on employee id and company id (to the respective primary keys in employee and company)
-and keeping only the results with a shipping fee less than the shipping fee designated in the function parameter.
-The results are then placed in ascending order according to their shipping fee
 */
 pair<string, string> GetQuery(int choice) { // maybe do some NULL exception handling for not NULL values
 	pair<string, string> query;
@@ -387,9 +374,3 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 
 
 }
-/*string stSQL = "SELECT C.Company, E.[Last Name] ";
-stSQL += "FROM Customers C, Employees E, Orders O ";
-stSQL += "WHERE E.ID=O.[Employee ID] AND C.ID=O.[Customer ID] AND ";
-stSQL += "O.[Shipping Fee] < ";
-stSQL += szFee;
-stSQL += " ORDER BY O.[Shipping Fee]";*/
