@@ -239,9 +239,10 @@ string GetQuery(int choice) {
 		stSQL += input;
 		break;
 	case 5:
-		stSQL = "SELECT P.[Product Name] ";
-		stSQL += "FROM Products AS P ";
-		stSQL += "WHERE P.Category = 'Beverages' AND P.Discontinued = 0; ";
+		stSQL = "By_Author ";
+		cout << "Enter Author ID " << endl;
+		cin >> input;
+		stSQL += input;
 		break;
 	case 6:
 		stSQL = "SELECT O.[Ship Name] ";
