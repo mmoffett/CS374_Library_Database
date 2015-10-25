@@ -3,6 +3,8 @@
 #include <sqlext.h>
 #include <iostream>
 #include <string>
+#include <vector>
+#include <sstream>
 using namespace std;
 
 #define SQLSERVER
@@ -15,6 +17,9 @@ pair<string, string> GetQuery(int choice);
 void PrintMenu();
 string CallFunctions(int choice);
 string ReadQuery(string s);
+
+int numColumns = 0;
+vector<string> columnVec;
 
 int main() {
 	bool cont = true;
@@ -103,6 +108,11 @@ void listProducts(float maxPrice) {
 	cout << "Which query would you like to access? \n";
 	cin >> choice;
 	stSQL = ReadQuery(GetQuery(choice).second); //calls GetQuery to get the string with the SQL query to be used
+	string temp = GetQuery(choice).first;
+
+	if (temp[0] == '#') {
+		// There are no columns
+	}
 
 							  //tries to connect to the database
 	rc = SQLDriverConnect(hdbc, NULL, (SQLCHAR *)stConnect.c_str(), stConnect.length(), szConnectOut, 1024, &cchConnect, SQL_DRIVER_NOPROMPT);
@@ -286,7 +296,7 @@ pair<string, string> GetQuery(int choice) {
 		cout << "Invalid input, will now exit...\n";
 		break;
 	}
-	return stSQL;
+	return query;
 }
 /*string stSQL = "SELECT C.Company, E.[Last Name] ";
 stSQL += "FROM Customers C, Employees E, Orders O ";
