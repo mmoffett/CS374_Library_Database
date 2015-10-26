@@ -337,20 +337,36 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		cout << "Enter Author ID " << endl;
 		cin >> input;
 		stSQL += input;
+
+		query.first = "#Find Books By Author";
+		query.second = stSQL;
 		break;
 	case 6:
-		stSQL = "SELECT O.[Ship Name] ";
-		stSQL += "FROM  Orders AS O ";
-		stSQL += "WHERE O.[Shipping Fee] > 100;";
+		stSQL = "Author_of_Book ";
+		cout << "Enter Book ID" << endl;
+		cin >> input;
+		stSQL += input;
+
+		query.first = "#Find Author of Book";
+		query.second = stSQL;
 		break;
 	case 7:
-		stSQL = "SELECT E.[First Name], E.[Last Name], E.[Job Title] ";
-		stSQL += "FROM Employees AS E; ";
+		stSQL = "Book_By_Title ";
+		cout << "Enter Part or All of Book Title" << endl;
+		cin >> input;
+		stSQL += input;
+
+		query.first = "#Find Book with Similar Title";
+		query.second = stSQL;
 		break;
 	case 8:
-		stSQL = "SELECT O.[Shipped Date], E.[First Name], E.[Last Name] ";
-		stSQL += "FROM Orders AS O, Employees AS E ";
-		stSQL += "WHERE O.[Employee ID] = E.ID; ";
+		stSQL = "Book_Checked_Out ";
+		cout << "Enter Book ID" << endl;
+		cin >> input;
+		stSQL += input;
+
+		query.first = "#Return Date Due if book Checked Out";
+		query.second = stSQL;
 		break;
 	case 9:
 		stSQL = "SELECT MAX(P.[List Price]), MIN(P.[List Price]), AVG(P.[List Price]) ";
