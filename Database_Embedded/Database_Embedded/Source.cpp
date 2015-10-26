@@ -369,14 +369,30 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.second = stSQL;
 		break;
 	case 9:
-		stSQL = "SELECT MAX(P.[List Price]), MIN(P.[List Price]), AVG(P.[List Price]) ";
-		stSQL += "FROM Products AS P; ";
+		stSQL = "Check_Out_Book ";
+		cout << "Enter Book ID" << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter Card ID" << endl;
+		cin >> input;
+		stSQL += input;
+		
+
+		query.first = "#Added Book to Books_Checked_Out";
+		query.second = stSQL;
 		break;
 	case 10:
-		stSQL = "SELECT P.Category, MAX(P.[List Price]), MIN(P.[List Price]), AVG(P.[List Price]) ";
-		stSQL += "FROM Products AS P ";
-		stSQL += "GROUP BY Category; ";
+		stSQL = "Find_Damages ";
+		cout << "Enter Book ID" << endl;
+		cin >> input;
+		stSQL += input;
+		
+
+		query.first = "#Return Damages to a Book if Any";
+		query.second = stSQL;
 		break;
+	//ADD More CASES
 	default:
 		cout << "Invalid input, will now exit...\n";
 		break;
