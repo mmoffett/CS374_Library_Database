@@ -198,10 +198,10 @@ void listTables(int queryNum) {
 #endif
 	pair<string, string> query = GetQuery(queryNum);
 	stSQL = query.second; //calls GetQuery to get the string with the SQL query to be used
-	string temp = query.first;
+	string temp = query.first; // The second string in the pair
 
 	if (temp[0] == '#') {
-		// There are no columns, the query inserted something
+		// There are no columns, (the query inserted something)
 	}
 	else {
 		for (int i = 0; i < temp.length(); i++) {
@@ -488,7 +488,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL += input;
 
 
-		query.first = "#Return Library User Info by User Name ";
+		query.first = "9~FirstName~LastName~HomeAddress~Phone~Email~UserType~DriversLicense~NumberOfBooks";
 		query.second = stSQL;
 		break;
 	case 14:
@@ -535,7 +535,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL += input;
 
 
-		query.first = "#Return Unpaid fines From Specific User";
+		query.first = "3~BookTitle~DaysOverdue~DaysOverdue";
 		query.second = stSQL;
 		break;
 	case 18:
@@ -553,7 +553,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	case 20:
 		stSQL = "SELECT * FROM Overdue_Books";
 
-		query.first = "20~BookID";
+		query.first = "1~BookID";
 		query.second = stSQL;
 		break;
 	default:
@@ -561,6 +561,4 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		break;
 	}
 	return query;
-
-
 }
