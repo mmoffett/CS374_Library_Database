@@ -11,7 +11,6 @@ using namespace std;
 #define SQLSERVER
 
 
-
 const int MAX_DATA = 100; //will limit the size of the data retrieved, by limiting the number of characters allowed in a data char array
 void listTables(int queryNum);
 pair<string, string> GetQuery(int choice);
@@ -35,15 +34,15 @@ int main() {
 		}
 		char c = NULL;
 		while (c != 'n' && c != 'N') {
-			CallFunctions(k);
-			cout << "Do You want to complete another query (y/n)?" << endl;
-			cin >> c;
-			while (c != 'y' && c != 'n' && c != 'N' && c != 'Y')
-			{
-				cout << "Invalid input, try again!" << endl;
+				CallFunctions(k);
+				cout << "Do You want to complete another query (y/n)?" << endl;
 				cin >> c;
+				while (c != 'y' && c != 'n' && c != 'N' && c != 'Y')
+				{
+					cout << "Invalid input, try again!" << endl;
+					cin >> c;
+				}
 			}
-		}
 
 		if (c == 'n' || c== 'N')
 			cont = false;
@@ -212,11 +211,11 @@ void listTables(int queryNum) {
 		while (curr <= numColumns) {
 			if (SQLGetData(hstmt, curr++, SQL_C_CHAR, szData, sizeof(szData), &cbData) == SQL_SUCCESS) {
 				if (first) {
-					std::cout << std::left << std::setw(40) << szData;
+					std::cout << std::left << std::setw(20) << szData;
 					first = false;
 				}
 				else {
-					std::cout << std::right << std::setw(40) << szData;
+					std::cout << std::right << std::setw(20) << szData;
 				}
 
 			}
@@ -343,7 +342,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		cin >> input;
 		stSQL += input;
 
-		query.first = "#Find Books By Author";
+		query.first = "5~BookTitle~AuthorFirstName~AuthorLastName~Genre~Pages";
 		query.second = stSQL;
 		break;
 	case 6:
