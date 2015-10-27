@@ -212,6 +212,7 @@ void listTables(int queryNum) {
 	stSQL = query.second; //calls GetQuery to get the string with the SQL query to be used
 	string temp = query.first; // The second string in the pair
 
+
 	if (temp[0] != '#') {
 		for (int i = 0; i < temp.length(); i++) {
 			if (temp[i] == '~') {
@@ -227,8 +228,6 @@ void listTables(int queryNum) {
 		numColumns = atoi(columnVec[0].c_str());
 	}
 
-
-	
 
 	//tries to connect to the database
 	rc = SQLDriverConnect(hdbc, NULL, (SQLCHAR *)stConnect.c_str(), stConnect.length(), szConnectOut, 1024, &cchConnect, SQL_DRIVER_NOPROMPT);
@@ -329,11 +328,11 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		cout << "Enter Author First Name" << endl;
 		cin.ignore();
 		getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Author Last Name" << endl;
 		getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 
 		query.first = "#Added Author Without Publisher";
 		query.second = stSQL;
@@ -343,16 +342,16 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		cout << "Enter Author First Name" << endl;
 		cin.ignore();
 		getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Author Last Name" << endl;
 		cin.ignore(); 
 		getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Publisher: " << endl;
 		cin.ignore();
-		stSQL += input;
+		stSQL += "'" + input + "'";
 
 		query.first = "#Added Author With Publisher";
 		query.second = stSQL;
@@ -361,26 +360,26 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL = "Add_Book ";
 		cout << "Enter Author ID" << endl;
 		cin.ignore(); getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Genre ID" << endl;
 		cin.ignore();
 		getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Title " << endl;
 		cin.ignore();
 		getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Pages " << endl;
 		cin.ignore();
 		getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter ISBN " << endl;
 		cin.ignore(); getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 
 		query.first = "#Added Book";
 		query.second = stSQL;
@@ -390,33 +389,31 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		cout << "Enter User First Name" << endl;
 		cin.ignore(); 
 		getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter User Last Name" << endl;
 		getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter User Address " << endl;
 		getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter User Phone " << endl;
 		getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter User Email " << endl;
 		getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter User Type " << endl;
 		getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter User Drivers License " << endl;
 		getline(cin, input);
-		stSQL += input;
-
-		cout << stSQL << endl;
+		stSQL += "'" + input + "'";
 
 		query.first = "#Added User";
 		query.second = stSQL;
@@ -425,7 +422,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL = "By_Author ";
 		cout << "Enter Author " << endl;
 		cin.ignore(); getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 
 		query.first = "5~BookTitle~AuthorFirstName~AuthorLastName~Genre~Pages";
 		query.second = stSQL;
@@ -434,7 +431,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL = "Author_of_Book ";
 		cout << "Enter Book " << endl;
 		cin.ignore(); getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 
 		query.first = "2~AuthorFirstName~AuthorLastName";
 		query.second = stSQL;
@@ -443,7 +440,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL = "Book_By_Title ";
 		cout << "Enter Part or All of Book Title" << endl;
 		cin.ignore(); getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 
 		query.first = "5~BookTitle~AuthorFirstName~AuthorLastName~Genre~Pages";
 		query.second = stSQL;
@@ -452,7 +449,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL = "Book_Checked_Out ";
 		cout << "Enter Book ID" << endl;
 		cin.ignore(); getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 
 		query.first = "1~Date_Due";
 		query.second = stSQL;
@@ -461,11 +458,11 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL = "Check_Out_Book ";
 		cout << "Enter Book ID" << endl;
 		cin.ignore(); getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Card ID" << endl;
 		getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 
 
 		query.first = "#Added Book to Books_Checked_Out";
@@ -475,7 +472,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL = "Find_Damages ";
 		cout << "Enter Book ID" << endl;
 		cin.ignore(); getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 
 
 		query.first = "3~Damage_ID~Book_ID~Damages";
@@ -485,7 +482,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL = "Genre_Info ";
 		cout << "Enter Genre" << endl;
 		cin.ignore(); getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 
 
 		query.first = "4~Genre_ID~BookTitle~AuthorFirstName~AuthorLastName";
@@ -495,15 +492,15 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL = "Give_Fine ";
 		cout << "Enter Book ID" << endl;
 		cin.ignore(); getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Card ID" << endl;
 		getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Days OverDue" << endl;
 		getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 
 
 		query.first = "#Give a User a Fine ";
@@ -513,7 +510,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL = "Library_User_Info ";
 		cout << "Enter Name: " << endl;
 		cin.ignore(); getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 
 
 		query.first = "9~Card_ID~FirstName~LastName~HomeAddress~Phone~Email~UserType~DriversLicense~NumberOfBooks";
@@ -523,11 +520,11 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL = "New_Damages ";
 		cout << "Enter Book ID: " << endl;
 		cin.ignore(); getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Damage Description: " << endl;
 		getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 
 
 		query.first = "#Add New Damage to Book";
@@ -537,11 +534,11 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL = "Pay_Fine ";
 		cout << "Enter Card ID: " << endl;
 		cin.ignore(); getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Book ID: " << endl;
 		getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 
 
 		query.first = "#Pay a Fine";
@@ -551,7 +548,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL = "Return_Book ";
 		cout << "Enter Card ID: " << endl;
 		cin.ignore(); getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 
 		query.first = "#Return a Book";
 		query.second = stSQL;
@@ -560,7 +557,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL = "Unpaid_By_User ";
 		cout << "Enter Card ID: " << endl;
 		cin.ignore(); getline(cin, input);
-		stSQL += input;
+		stSQL += "'" + input + "'";
 
 
 		query.first = "3~BookTitle~DaysOverdue~DaysOverdue";
