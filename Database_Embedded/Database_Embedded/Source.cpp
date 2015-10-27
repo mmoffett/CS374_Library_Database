@@ -450,7 +450,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL += input;
 
 
-		query.first = "#Return Damages to a Book if Any";
+		query.first = "3~Damage_ID~Book_ID~Damages";
 		query.second = stSQL;
 		break;
 	case 11:
@@ -460,7 +460,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL += input;
 
 
-		query.first = "#Return books in Genre";
+		query.first = "4~Genre_ID~BookTitle~AuthorFirstName~AuthorLastName";
 		query.second = stSQL;
 		break;
 	case 12:
