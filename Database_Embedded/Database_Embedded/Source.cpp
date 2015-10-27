@@ -275,7 +275,7 @@ void listTables(int queryNum) {
 
 	cout << endl << endl;
 	while (rc == SQL_SUCCESS) {
-
+		string last = "";
 		rc = SQLFetch(hstmt);
 		bool first = true;
 		while (curr <= numColumns) {
@@ -283,9 +283,16 @@ void listTables(int queryNum) {
 				if (first) {
 					std::cout << std::left << std::setw(20) << szData;
 					first = false;
+					last = szData;
 				}
 				else {
-					std::cout << std::right << std::setw(20) << szData;
+					if (!(last == szData)) {
+						std::cout << std::right << std::setw(20) << szData;
+					}
+					else {
+						std::cout << std::right << std::setw(20) << "";
+					}
+					last = szData;
 				}
 
 			}
@@ -326,7 +333,6 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter Author Last Name" << endl;
-		cin.ignore();
 		getline(cin, input);
 		stSQL += input;
 
@@ -341,7 +347,8 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter Author Last Name" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); 
+		getline(cin, input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter Publisher: " << endl;
