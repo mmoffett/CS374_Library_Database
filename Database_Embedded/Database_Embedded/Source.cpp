@@ -549,7 +549,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		break;
 	case 16:
 		stSQL = "Return_Book ";
-		cout << "Enter Card ID: " << endl;
+		cout << "Enter Book ID: " << endl;
 		cin.ignore(); getline(cin, input);
 		stSQL += input;
 
