@@ -57,7 +57,6 @@ int main() {
 				}
 				tempvar++;
 			}
-
 			else {
 				PrintMenu();
 				cin >> k;
@@ -76,13 +75,10 @@ int main() {
 				}
 				tempvar++;
 			}
-
 		}
-
 		if (c == 'n' || c == 'N')
 			cont = false;
 	}
-
 	return 0;
 }
 void PrintMenu()
@@ -316,7 +312,7 @@ Function GetQuery
 @return a string containing the SQL for the query
 
 */
-pair<string, string> GetQuery(int choice) { // maybe do some NULL exception handling for not NULL values
+pair<string, string> GetQuery(int choice) {
 	pair<string, string> query;
 	query.first = "";
 	query.second = "";
