@@ -26,6 +26,7 @@ int main() {
 	{
 		PrintMenu();
 		int k;
+		int tempvar = 0;
 		cin >> k;
 		while (k > 10 /*number of queries*/)
 		{
@@ -34,13 +35,29 @@ int main() {
 		}
 		char c = NULL;
 		while (c != 'n' && c != 'N') {
-			CallFunctions(k);
-			cout << "Do You want to complete another query (y/n)?" << endl;
-			cin >> c;
-			while (c != 'y' && c != 'n' && c != 'N' && c != 'Y')
-			{
-				cout << "Invalid input, try again!" << endl;
+			if (tempvar == 0) {
+				CallFunctions(k);
+				cout << "Do You want to complete another query (y/n)?" << endl;
 				cin >> c;
+				while (c != 'y' && c != 'n' && c != 'N' && c != 'Y')
+				{
+					cout << "Invalid input, try again!" << endl;
+					cin >> c;
+				}
+				tempvar++;
+			}
+			else {
+				PrintMenu();
+				cin >> k;
+				CallFunctions(k);
+				cout << "Do You want to complete another query (y/n)?" << endl;
+				cin >> c;
+				while (c != 'y' && c != 'n' && c != 'N' && c != 'Y')
+				{
+					cout << "Invalid input, try again!" << endl;
+					cin >> c;
+				}
+				tempvar++;
 			}
 		}
 
@@ -248,7 +265,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	string stSQL;
 	string input;
 	switch (choice) {
-	case 1:
+	case 1: //Add author without publisher
 		stSQL = "Add_Author_NoPublisher ";
 		cout << "Enter Author First Name" << endl;
 		cin >> input;
@@ -261,7 +278,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Added Author Without Publisher";
 		query.second = stSQL;
 		break;
-	case 2:
+	case 2: //add author with publisher
 		stSQL = "Add_Author_Publisher ";
 		cout << "Enter Author First Name" << endl;
 		cin >> input;
@@ -278,7 +295,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Added Author With Publisher";
 		query.second = stSQL;
 		break;
-	case 3:
+	case 3: //add books
 		stSQL = "Add_Book ";
 		cout << "Enter Author ID" << endl;
 		cin >> input;
@@ -303,7 +320,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Added Book";
 		query.second = stSQL;
 		break;
-	case 4:
+	case 4: //add user
 		stSQL = "Add_USER ";
 		cout << "Enter User First Name" << endl;
 		cin >> input;
@@ -336,7 +353,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Added User";
 		query.second = stSQL;
 		break;
-	case 5:
+	case 5: //search for books by author
 		stSQL = "By_Author ";
 		cout << "Enter Author " << endl;
 		cin >> input;
@@ -345,7 +362,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Find Books By Author";
 		query.second = stSQL;
 		break;
-	case 6:
+	case 6: //get the author of a book by title
 		stSQL = "Author_of_Book ";
 		cout << "Enter Book ID" << endl;
 		cin >> input;
@@ -354,7 +371,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Find Author of Book";
 		query.second = stSQL;
 		break;
-	case 7:
+	case 7: //search for a book by title
 		stSQL = "Book_By_Title ";
 		cout << "Enter Part or All of Book Title" << endl;
 		cin >> input;
@@ -363,7 +380,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Find Book with Similar Title";
 		query.second = stSQL;
 		break;
-	case 8:
+	case 8: //return date due if book is checked out
 		stSQL = "Book_Checked_Out ";
 		cout << "Enter Book ID" << endl;
 		cin >> input;
@@ -372,7 +389,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Return Date Due if book Checked Out";
 		query.second = stSQL;
 		break;
-	case 9:
+	case 9: //check out book
 		stSQL = "Check_Out_Book ";
 		cout << "Enter Book ID" << endl;
 		cin >> input;
@@ -386,13 +403,11 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Added Book to Books_Checked_Out";
 		query.second = stSQL;
 		break;
-	case 10:
+	case 10: //list damages to a book by title
 		stSQL = "Find_Damages ";
 		cout << "Enter Book ID" << endl;
 		cin >> input;
 		stSQL += input;
-		
-
 		query.first = "#Return Damages to a Book if Any";
 		query.second = stSQL;
 		break;
