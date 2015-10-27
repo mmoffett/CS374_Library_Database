@@ -130,6 +130,39 @@ void CallFunctions(int userQuery)
 	case 9:
 		listTables(userQuery);
 		break;
+	case 10:
+		listTables(userQuery);
+		break;
+	case 11:
+		listTables(userQuery);
+		break;
+	case 12:
+		listTables(userQuery);
+		break;
+	case 13:
+		listTables(userQuery);
+		break;
+	case 14:
+		listTables(userQuery);
+		break;
+	case 15:
+		listTables(userQuery);
+		break;
+	case 16:
+		listTables(userQuery);
+		break;
+	case 17:
+		listTables(userQuery);
+		break;
+	case 18:
+		listTables(userQuery);
+		break;
+	case 19:
+		listTables(userQuery);
+		break;
+	case 20:
+		listTables(userQuery);
+		break;
 		/*up to case n, where n exists in the positive integers */
 	default: cout << "Invalid selection, please re-select.\n";
 	}
