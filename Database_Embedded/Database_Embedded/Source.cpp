@@ -6,6 +6,7 @@
 #include <vector>
 #include <sstream>
 #include <iomanip>
+#include <typeinfo>
 using namespace std;
 
 #define SQLSERVER
@@ -25,9 +26,21 @@ int main() {
 	while (cont == true)
 	{
 		PrintMenu();
-		int k;
+		int k = 0;
 		int tempvar = 0;
 		cin >> k;
+		while (!(typeid(int) == typeid(k))) {
+			cout << "Invalid input, try again!" << endl;
+			cin.clear();
+			cin.ignore();
+			cin >> k;
+		}
+		while (k == 0) {
+			cin.clear();
+			cin.ignore(256, '\n');
+			cout << "Invalid input, try again\n";
+			cin >> k;
+		}
 		while (k > 20 /*number of queries*/)
 		{
 			cout << "Invalid input, try again!" << endl;
