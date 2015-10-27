@@ -68,9 +68,9 @@ void PrintMenu()
 	cout << left << "12: Give a Fine to a Library User" << endl;
 	cout << left << "13:  Get info for user by library card id" << endl;
 	cout << left << "14:  Report New Book Damages" << endl;
-
 	cout << left << "15:  Pay a Fine" << endl;
 	cout << left << "16: Return a Book to the Library" << endl;
+
 	cout << left << "17: Find all unpaid fines for a user" << endl;
 
 
@@ -449,9 +449,29 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Add New Damage to Book";
 		query.second = stSQL;
 		break;
-	case 15://Pay a Fine
+	case 15:
+		stSQL = "Pay_Fine ";
+		cout << "Enter Card ID: " << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter Book ID: " << endl;
+		cin >> input;
+		stSQL += input;
 
-	case 16://Return a Book
+
+		query.first = "#Pay a Fine";
+		query.second = stSQL;
+		break;
+	case 16:
+		stSQL = "Return_Book ";
+		cout << "Enter Card ID: " << endl;
+		cin >> input;
+		stSQL += input;
+		
+		query.first = "#Return a Book";
+		query.second = stSQL;
+		break;
 	case 17://return unpaid fines
 	//ADD More CASES
 	default:
