@@ -542,7 +542,7 @@ pair<string, string> GetQuery(int choice) {
 		break;
 	case 16:
 		stSQL = "Return_Book ";
-		cout << "Enter Card ID: " << endl;
+		cout << "Enter Book ID: " << endl;
 		cin.ignore(); getline(cin, input);
 		stSQL += "'" + input + "'";
 
