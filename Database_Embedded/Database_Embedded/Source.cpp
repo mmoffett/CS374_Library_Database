@@ -11,6 +11,9 @@ using namespace std;
 #define SQLSERVER
 
 
+enum MENUSTATE {CONTINUE, EXIT};
+MENUSTATE currState = CONTINUE;
+
 const int MAX_DATA = 100; //will limit the size of the data retrieved, by limiting the number of characters allowed in a data char array
 void listTables(int queryNum);
 pair<string, string> GetQuery(int choice);
@@ -228,11 +231,11 @@ void listTables(int queryNum) {
 		while (curr <= numColumns) {
 			if (SQLGetData(hstmt, curr++, SQL_C_CHAR, szData, sizeof(szData), &cbData) == SQL_SUCCESS) {
 				if (first) {
-					std::cout << std::left << std::setw(40) << szData;
+					std::cout << std::left << std::setw(20) << szData;
 					first = false;
 				}
 				else {
-					std::cout << std::right << std::setw(40) << szData;
+					std::cout << std::right << std::setw(20) << szData;
 				}
 
 			}
@@ -359,7 +362,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		cin >> input;
 		stSQL += input;
 
-		query.first = "#Find Books By Author";
+		query.first = "5~BookTitle~AuthorFirstName~AuthorLastName~Genre~Pages";
 		query.second = stSQL;
 		break;
 	case 6: //get the author of a book by title
