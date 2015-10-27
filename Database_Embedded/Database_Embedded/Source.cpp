@@ -404,11 +404,11 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		break;
 	case 6:
 		stSQL = "Author_of_Book ";
-		cout << "Enter Book ID" << endl;
+		cout << "Enter Book " << endl;
 		cin >> input;
 		stSQL += input;
 
-		query.first = "#Find Author of Book";
+		query.first = "2~AuthorFirstName~AuthorLastName";
 		query.second = stSQL;
 		break;
 	case 7:
@@ -417,7 +417,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		cin >> input;
 		stSQL += input;
 
-		query.first = "#Find Book with Similar Title";
+		query.first = "5~BookTitle~AuthorFirstName~AuthorLastName~Genre~Pages";
 		query.second = stSQL;
 		break;
 	case 8:
@@ -426,7 +426,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		cin >> input;
 		stSQL += input;
 
-		query.first = "#Return Date Due if book Checked Out";
+		query.first = "1~Date_Due";
 		query.second = stSQL;
 		break;
 	case 9:
