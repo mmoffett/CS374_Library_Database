@@ -16,10 +16,8 @@ const int MAX_DATA = 100; //will limit the size of the data retrieved, by limiti
 void listTables(int queryNum);
 pair<string, string> GetQuery(int choice);
 void PrintMenu();
-void CallFunctions(int choice);
-
+void CallFunctions(int choice);\
 int numColumns = 0;
-vector<string> columnVec;
 
 int main() {
 	bool cont = true;
@@ -197,6 +195,7 @@ void listTables(int queryNum) {
 	char szData[MAX_DATA];
 	string stSQL;
 	SDWORD cbData;
+	vector<string> columnVec;
 
 	SQLAllocEnv(&henv);
 	SQLAllocConnect(henv, &hdbc);
@@ -213,24 +212,23 @@ void listTables(int queryNum) {
 	stSQL = query.second; //calls GetQuery to get the string with the SQL query to be used
 	string temp = query.first; // The second string in the pair
 
-	if (temp[0] == '#') {
-		// There are no columns, (the query inserted something)
-	}
-	else {
+	if (temp[0] != '#') {
 		for (int i = 0; i < temp.length(); i++) {
 			if (temp[i] == '~') {
 				temp[i] = ' ';
 			}
 		}
+		stringstream ss(temp);
+		string t;
+		while (ss >> t) {
+			columnVec.push_back(t);
+		}
+
+		numColumns = atoi(columnVec[0].c_str());
 	}
 
-	stringstream ss(temp);
-	string t;
-	while (ss >> t) {
-		columnVec.push_back(t);
-	}
 
-	numColumns = atoi(columnVec[0].c_str());
+	
 
 	//tries to connect to the database
 	rc = SQLDriverConnect(hdbc, NULL, (SQLCHAR *)stConnect.c_str(), stConnect.length(), szConnectOut, 1024, &cchConnect, SQL_DRIVER_NOPROMPT);
@@ -261,18 +259,19 @@ void listTables(int queryNum) {
 
 	cout << fixed;
 	cout << setprecision(2);
-
 	int curr = 0;
-	for (int i = 1; i <= numColumns; i++) {
-		if (i == 1) {
-			cout << left << setw(40) << columnVec[i];
-		}
-		else {
-			cout << right << setw(40) << columnVec[i];
+
+	if (columnVec.size() != NULL) {
+		for (int i = 1; i <= numColumns; i++) {
+			if (i == 1) {
+				cout << left << setw(25) << columnVec[i];
+			}
+			else {
+				cout << right << setw(25) << columnVec[i];
+			}
 		}
 	}
-
-
+	
 	cout << endl << endl;
 	while (rc == SQL_SUCCESS) {
 		string last = "";
@@ -281,16 +280,16 @@ void listTables(int queryNum) {
 		while (curr <= numColumns) {
 			if (SQLGetData(hstmt, curr++, SQL_C_CHAR, szData, sizeof(szData), &cbData) == SQL_SUCCESS) {
 				if (first) {
-					std::cout << std::left << std::setw(20) << szData;
+					std::cout << std::left << std::setw(10) << szData;
 					first = false;
 					last = szData;
 				}
 				else {
 					if (!(last == szData)) {
-						std::cout << std::right << std::setw(20) << szData;
+						std::cout << std::right << std::setw(10) << szData;
 					}
 					else {
-						std::cout << std::right << std::setw(20) << "";
+						std::cout << std::right << std::setw(10) << "N/A";
 					}
 					last = szData;
 				}
@@ -389,32 +388,35 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	case 4:
 		stSQL = "Add_USER ";
 		cout << "Enter User First Name" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); 
+		getline(cin, input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter User Last Name" << endl;
-		cin.ignore(); getline(cin, input);
+		getline(cin, input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter User Address " << endl;
-		cin.ignore(); getline(cin, input);
+		getline(cin, input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter User Phone " << endl;
-		cin.ignore(); getline(cin, input);
+		getline(cin, input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter User Email " << endl;
-		cin.ignore(); getline(cin, input);
+		getline(cin, input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter User Type " << endl;
-		cin.ignore(); getline(cin, input);
+		getline(cin, input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter User Drivers License " << endl;
-		cin.ignore(); getline(cin, input);
+		getline(cin, input);
 		stSQL += input;
+
+		cout << stSQL << endl;
 
 		query.first = "#Added User";
 		query.second = stSQL;
@@ -462,7 +464,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter Card ID" << endl;
-		cin.ignore(); getline(cin, input);
+		getline(cin, input);
 		stSQL += input;
 
 
@@ -496,11 +498,11 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter Card ID" << endl;
-		cin.ignore(); getline(cin, input);
+		getline(cin, input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter Days OverDue" << endl;
-		cin.ignore(); getline(cin, input);
+		getline(cin, input);
 		stSQL += input;
 
 
@@ -514,7 +516,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL += input;
 
 
-		query.first = "9~FirstName~LastName~HomeAddress~Phone~Email~UserType~DriversLicense~NumberOfBooks";
+		query.first = "9~Card_ID~FirstName~LastName~HomeAddress~Phone~Email~UserType~DriversLicense~NumberOfBooks";
 		query.second = stSQL;
 		break;
 	case 14:
@@ -524,7 +526,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter Damage Description: " << endl;
-		cin.ignore(); getline(cin, input);
+		getline(cin, input);
 		stSQL += input;
 
 
@@ -538,7 +540,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter Book ID: " << endl;
-		cin.ignore(); getline(cin, input);
+		getline(cin, input);
 		stSQL += input;
 
 
