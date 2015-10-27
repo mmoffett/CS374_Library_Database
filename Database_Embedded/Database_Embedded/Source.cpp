@@ -252,10 +252,10 @@ void listTables(int queryNum) {
 	int curr = 0;
 	for (int i = 1; i <= numColumns; i++) {
 		if (i == 1) {
-			cout << left << setw(40) << columnVec[i];
+			cout << left << setw(30) << columnVec[i];
 		}
 		else {
-			cout << right << setw(40) << columnVec[i];
+			cout << right << setw(30) << columnVec[i];
 		}
 	}
 
@@ -268,11 +268,11 @@ void listTables(int queryNum) {
 		while (curr <= numColumns) {
 			if (SQLGetData(hstmt, curr++, SQL_C_CHAR, szData, sizeof(szData), &cbData) == SQL_SUCCESS) {
 				if (first) {
-					std::cout << std::left << std::setw(20) << szData;
+					std::cout << std::left << std::setw(30) << szData;
 					first = false;
 				}
 				else {
-					std::cout << std::right << std::setw(20) << szData;
+					std::cout << std::right << std::setw(30) << szData;
 				}
 
 			}
@@ -396,7 +396,8 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	case 5:
 		stSQL = "By_Author ";
 		cout << "Enter Author " << endl;
-		cin >> input;
+		cin.ignore();
+		getline(cin, input);
 		stSQL += input;
 
 		query.first = "5~BookTitle~AuthorFirstName~AuthorLastName~Genre~Pages";
@@ -488,7 +489,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL += input;
 
 
-		query.first = "9~FirstName~LastName~HomeAddress~Phone~Email~UserType~DriversLicense~NumberOfBooks";
+		query.first = "9~CardID~FirstName~LastName~HomeAddress~Phone~Email~UserType~DriversLicense~NumberOfBooks";
 		query.second = stSQL;
 		break;
 	case 14:
