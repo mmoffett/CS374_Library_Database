@@ -11,6 +11,7 @@ using namespace std;
 #define SQLSERVER
 
 
+
 const int MAX_DATA = 100; //will limit the size of the data retrieved, by limiting the number of characters allowed in a data char array
 void listTables(int queryNum);
 pair<string, string> GetQuery(int choice);
@@ -26,7 +27,6 @@ int main() {
 	{
 		PrintMenu();
 		int k;
-		int tempvar = 0;
 		cin >> k;
 		while (k > 10 /*number of queries*/)
 		{
@@ -35,29 +35,13 @@ int main() {
 		}
 		char c = NULL;
 		while (c != 'n' && c != 'N') {
-			if (tempvar == 0) {
-				CallFunctions(k);
-				cout << "Do You want to complete another query (y/n)?" << endl;
+			CallFunctions(k);
+			cout << "Do You want to complete another query (y/n)?" << endl;
+			cin >> c;
+			while (c != 'y' && c != 'n' && c != 'N' && c != 'Y')
+			{
+				cout << "Invalid input, try again!" << endl;
 				cin >> c;
-				while (c != 'y' && c != 'n' && c != 'N' && c != 'Y')
-				{
-					cout << "Invalid input, try again!" << endl;
-					cin >> c;
-				}
-				tempvar++;
-			}
-			else {
-				PrintMenu();
-				cin >> k;
-				CallFunctions(k);
-				cout << "Do You want to complete another query (y/n)?" << endl;
-				cin >> c;
-				while (c != 'y' && c != 'n' && c != 'N' && c != 'Y')
-				{
-					cout << "Invalid input, try again!" << endl;
-					cin >> c;
-				}
-				tempvar++;
 			}
 		}
 
@@ -87,8 +71,9 @@ void PrintMenu()
 	cout << left << "15:  Pay a Fine" << endl;
 	cout << left << "16: Return a Book to the Library" << endl;
 	cout << left << "17: Find all unpaid fines for a user" << endl;
-
-
+	cout << left << "18: Return all Books Checked Out" << endl;
+	cout << left << "19: Return All Library Books" << endl;
+	cout << left << "20: Return All Overdue Books" << endl;
 	//...menu of options
 }
 void CallFunctions(int userQuery)
@@ -120,30 +105,6 @@ void CallFunctions(int userQuery)
 		listTables(userQuery);
 		break;
 	case 9:
-		listTables(userQuery);
-		break;
-	case 10:
-		listTables(userQuery);
-		break;
-	case 11:
-		listTables(userQuery);
-		break;
-	case 12:
-		listTables(userQuery);
-		break;
-	case 13:
-		listTables(userQuery);
-		break;
-	case 14:
-		listTables(userQuery);
-		break;
-	case 15:
-		listTables(userQuery);
-		break;
-	case 16:
-		listTables(userQuery);
-		break;
-	case 17:
 		listTables(userQuery);
 		break;
 		/*up to case n, where n exists in the positive integers */
@@ -288,7 +249,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	string stSQL;
 	string input;
 	switch (choice) {
-	case 1: //Add author without publisher
+	case 1:
 		stSQL = "Add_Author_NoPublisher ";
 		cout << "Enter Author First Name" << endl;
 		cin >> input;
@@ -301,7 +262,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Added Author Without Publisher";
 		query.second = stSQL;
 		break;
-	case 2: //add author with publisher
+	case 2:
 		stSQL = "Add_Author_Publisher ";
 		cout << "Enter Author First Name" << endl;
 		cin >> input;
@@ -318,7 +279,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Added Author With Publisher";
 		query.second = stSQL;
 		break;
-	case 3: //add books
+	case 3:
 		stSQL = "Add_Book ";
 		cout << "Enter Author ID" << endl;
 		cin >> input;
@@ -343,7 +304,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Added Book";
 		query.second = stSQL;
 		break;
-	case 4: //add user
+	case 4:
 		stSQL = "Add_USER ";
 		cout << "Enter User First Name" << endl;
 		cin >> input;
@@ -376,7 +337,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Added User";
 		query.second = stSQL;
 		break;
-	case 5: //search for books by author
+	case 5:
 		stSQL = "By_Author ";
 		cout << "Enter Author " << endl;
 		cin >> input;
@@ -385,7 +346,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "Find Books By Author";
 		query.second = stSQL;
 		break;
-	case 6: //get the author of a book by title
+	case 6:
 		stSQL = "Author_of_Book ";
 		cout << "Enter Book ID" << endl;
 		cin >> input;
@@ -394,7 +355,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Find Author of Book";
 		query.second = stSQL;
 		break;
-	case 7: //search for a book by title
+	case 7:
 		stSQL = "Book_By_Title ";
 		cout << "Enter Part or All of Book Title" << endl;
 		cin >> input;
@@ -403,7 +364,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Find Book with Similar Title";
 		query.second = stSQL;
 		break;
-	case 8: //return date due if book is checked out
+	case 8:
 		stSQL = "Book_Checked_Out ";
 		cout << "Enter Book ID" << endl;
 		cin >> input;
@@ -412,7 +373,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Return Date Due if book Checked Out";
 		query.second = stSQL;
 		break;
-	case 9: //check out book
+	case 9:
 		stSQL = "Check_Out_Book ";
 		cout << "Enter Book ID" << endl;
 		cin >> input;
@@ -426,11 +387,13 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Added Book to Books_Checked_Out";
 		query.second = stSQL;
 		break;
-	case 10: //list damages to a book by title
+	case 10:
 		stSQL = "Find_Damages ";
 		cout << "Enter Book ID" << endl;
 		cin >> input;
 		stSQL += input;
+		
+
 		query.first = "#Return Damages to a Book if Any";
 		query.second = stSQL;
 		break;
@@ -509,8 +472,34 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Return a Book";
 		query.second = stSQL;
 		break;
-	case 17://return unpaid fines
-	//ADD More CASES
+	case 17:
+		stSQL = "Unpaid_By_User ";
+		cout << "Enter Card ID: " << endl;
+		cin >> input;
+		stSQL += input;
+
+
+		query.first = "#Return Unpaid fines From Specific User";
+		query.second = stSQL;
+		break;
+	case 18:
+		stSQL = "SELECT * FROM Books_Out";
+
+		query.first = "#Return Books Checked Out";
+		query.second = stSQL;
+		break;
+	case 19:
+		stSQL = "SELECT * FROM Library_Books";
+
+		query.first = "#Return All Library Books";
+		query.second = stSQL;
+		break;
+	case 20:
+		stSQL = "SELECT * FROM Overdue_Books";
+
+		query.first = "#Return Overdue Books";
+		query.second = stSQL;
+		break;
 	default:
 		cout << "Invalid input, will now exit...\n";
 		break;
