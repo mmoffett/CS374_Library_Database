@@ -313,7 +313,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		getline(cin, input);
 		stSQL += input;
 		stSQL += ", ";
-		cout << "Enter Author Last Name" << endl;
+		cout << "Enter Author Last Name: ";
 		cin.ignore();
 		getline(cin, input);
 		stSQL += input;
@@ -332,7 +332,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		cin.ignore(); getline(cin,input);
 		stSQL += input;
 		stSQL += ", ";
-		cout << "Enter Publisher: " << endl;
+		cout << "Enter Publisher: ";
 		cin.ignore();
 		stSQL += input;
 
