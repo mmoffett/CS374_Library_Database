@@ -6,7 +6,7 @@
 #include <vector>
 #include <sstream>
 #include <iomanip>
-#include <typeinfo>
+#include <istream>
 using namespace std;
 
 #define SQLSERVER
@@ -26,21 +26,9 @@ int main() {
 	while (cont == true)
 	{
 		PrintMenu();
-		int k = 0;
+		int k;
 		int tempvar = 0;
 		cin >> k;
-		while (!(typeid(int) == typeid(k))) {
-			cout << "Invalid input, try again!" << endl;
-			cin.clear();
-			cin.ignore();
-			cin >> k;
-		}
-		while (k == 0) {
-			cin.clear();
-			cin.ignore(256, '\n');
-			cout << "Invalid input, try again\n";
-			cin >> k;
-		}
 		while (k > 20 /*number of queries*/)
 		{
 			cout << "Invalid input, try again!" << endl;
@@ -325,7 +313,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		getline(cin, input);
 		stSQL += input;
 		stSQL += ", ";
-		cout << "Enter Author Last Name: ";
+		cout << "Enter Author Last Name: "<<endl;
 		cin.ignore();
 		getline(cin, input);
 		stSQL += input;
@@ -341,10 +329,10 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter Author Last Name" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 		stSQL += ", ";
-		cout << "Enter Publisher: ";
+		cout << "Enter Publisher: "<<endl;
 		cin.ignore();
 		stSQL += input;
 
@@ -354,26 +342,26 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	case 3:
 		stSQL = "Add_Book ";
 		cout << "Enter Author ID" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter Genre ID" << endl;
-		cin.ignore();
-		getline(cin, input);
+		cin.ignore(); 
+		getline(cin,input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter Title " << endl;
-		cin.ignore();
-		getline(cin, input);
+		cin.ignore(); 
+		getline(cin,input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter Pages " << endl;
-		cin.ignore();
-		getline(cin, input);
+		cin.ignore(); 
+		getline(cin,input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter ISBN " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 
 		query.first = "#Added Book";
@@ -382,31 +370,31 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	case 4:
 		stSQL = "Add_USER ";
 		cout << "Enter User First Name" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter User Last Name" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter User Address " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter User Phone " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter User Email " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter User Type " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter User Drivers License " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 
 		query.first = "#Added User";
@@ -415,7 +403,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	case 5:
 		stSQL = "By_Author ";
 		cout << "Enter Author " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 
 		query.first = "5~BookTitle~AuthorFirstName~AuthorLastName~Genre~Pages";
@@ -424,7 +412,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	case 6:
 		stSQL = "Author_of_Book ";
 		cout << "Enter Book " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 
 		query.first = "2~AuthorFirstName~AuthorLastName";
@@ -433,7 +421,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	case 7:
 		stSQL = "Book_By_Title ";
 		cout << "Enter Part or All of Book Title" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 
 		query.first = "5~BookTitle~AuthorFirstName~AuthorLastName~Genre~Pages";
@@ -442,7 +430,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	case 8:
 		stSQL = "Book_Checked_Out ";
 		cout << "Enter Book ID" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 
 		query.first = "1~Date_Due";
@@ -451,11 +439,11 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	case 9:
 		stSQL = "Check_Out_Book ";
 		cout << "Enter Book ID" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter Card ID" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 
 
@@ -465,7 +453,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	case 10:
 		stSQL = "Find_Damages ";
 		cout << "Enter Book ID" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 
 
@@ -475,7 +463,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	case 11:
 		stSQL = "Genre_Info ";
 		cout << "Enter Genre" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 
 
@@ -485,15 +473,15 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	case 12:
 		stSQL = "Give_Fine ";
 		cout << "Enter Book ID" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter Card ID" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter Days OverDue" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 
 
@@ -503,7 +491,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	case 13:
 		stSQL = "Library_User_Info ";
 		cout << "Enter Name: " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 
 
@@ -513,11 +501,11 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	case 14:
 		stSQL = "New_Damages ";
 		cout << "Enter Book ID: " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter Damage Description: " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 
 
@@ -527,11 +515,11 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	case 15:
 		stSQL = "Pay_Fine ";
 		cout << "Enter Card ID: " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 		stSQL += ", ";
 		cout << "Enter Book ID: " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 
 
@@ -541,7 +529,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	case 16:
 		stSQL = "Return_Book ";
 		cout << "Enter Card ID: " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 
 		query.first = "#Return a Book";
@@ -550,7 +538,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	case 17:
 		stSQL = "Unpaid_By_User ";
 		cout << "Enter Card ID: " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.ignore(); getline(cin,input);
 		stSQL += input;
 
 
