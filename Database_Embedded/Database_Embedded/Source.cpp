@@ -404,11 +404,11 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		break;
 	case 6:
 		stSQL = "Author_of_Book ";
-		cout << "Enter Book ID" << endl;
+		cout << "Enter Book " << endl;
 		cin >> input;
 		stSQL += input;
 
-		query.first = "#Find Author of Book";
+		query.first = "2~AuthorFirstName~AuthorLastName";
 		query.second = stSQL;
 		break;
 	case 7:
@@ -417,7 +417,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		cin >> input;
 		stSQL += input;
 
-		query.first = "#Find Book with Similar Title";
+		query.first = "5~BookTitle~AuthorFirstName~AuthorLastName~Genre~Pages";
 		query.second = stSQL;
 		break;
 	case 8:
@@ -426,7 +426,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		cin >> input;
 		stSQL += input;
 
-		query.first = "#Return Date Due if book Checked Out";
+		query.first = "1~Date_Due";
 		query.second = stSQL;
 		break;
 	case 9:
@@ -450,7 +450,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL += input;
 
 
-		query.first = "#Return Damages to a Book if Any";
+		query.first = "3~Damage_ID~Book_ID~Damages";
 		query.second = stSQL;
 		break;
 	case 11:
@@ -460,7 +460,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		stSQL += input;
 
 
-		query.first = "#Return books in Genre";
+		query.first = "4~Genre_ID~BookTitle~AuthorFirstName~AuthorLastName";
 		query.second = stSQL;
 		break;
 	case 12:
@@ -541,13 +541,13 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	case 18:
 		stSQL = "SELECT * FROM Books_Out";
 
-		query.first = "18~ID~Date_Out";
+		query.first = "2~ID~Date_Out";
 		query.second = stSQL;
 		break;
 	case 19:
 		stSQL = "SELECT * FROM Library_Books";
 
-		query.first = "19~BookTitle~Genre_ID~AuthorFirstName~AuthorLastName~Publisher";
+		query.first = "5~BookTitle~Genre_ID~AuthorFirstName~AuthorLastName~Publisher";
 		query.second = stSQL;
 		break;
 	case 20:
