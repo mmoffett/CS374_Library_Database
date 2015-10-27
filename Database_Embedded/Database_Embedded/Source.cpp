@@ -449,9 +449,10 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Add New Damage to Book";
 		query.second = stSQL;
 		break;
-	case 15:
-	case 16:
-	case 17:
+	case 15://Pay a Fine
+
+	case 16://Return a Book
+	case 17://return unpaid fines
 	//ADD More CASES
 	default:
 		cout << "Invalid input, will now exit...\n";
