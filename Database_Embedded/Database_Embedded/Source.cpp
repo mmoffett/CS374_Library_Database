@@ -11,7 +11,6 @@ using namespace std;
 #define SQLSERVER
 
 
-
 const int MAX_DATA = 100; //will limit the size of the data retrieved, by limiting the number of characters allowed in a data char array
 void listTables(int queryNum);
 pair<string, string> GetQuery(int choice);
