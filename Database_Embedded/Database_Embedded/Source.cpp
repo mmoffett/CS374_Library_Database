@@ -81,13 +81,13 @@ void PrintMenu()
 	cout << left << "8: Return Date Due if Book is Checked Out" << endl;
 	cout << left << "9: Check Out Book" << endl;
 	cout << left << "10: List damages to a book by title" << endl;
-
 	cout << left << "11:  Search for books by genre " << endl;
 	cout << left << "12: Give a Fine to a Library User" << endl;
 	cout << left << "13:  Get info for user by library card id" << endl;
 	cout << left << "14:  Report New Book Damages" << endl;
 	cout << left << "15:  Pay a Fine" << endl;
 	cout << left << "16: Return a Book to the Library" << endl;
+
 	cout << left << "17: Find all unpaid fines for a user" << endl;
 
 
@@ -122,30 +122,6 @@ void CallFunctions(int userQuery)
 		listTables(userQuery);
 		break;
 	case 9:
-		listTables(userQuery);
-		break;
-	case 10:
-		listTables(userQuery);
-		break;
-	case 11:
-		listTables(userQuery);
-		break;
-	case 12:
-		listTables(userQuery);
-		break;
-	case 13:
-		listTables(userQuery);
-		break;
-	case 14:
-		listTables(userQuery);
-		break;
-	case 15:
-		listTables(userQuery);
-		break;
-	case 16:
-		listTables(userQuery);
-		break;
-	case 17:
 		listTables(userQuery);
 		break;
 		/*up to case n, where n exists in the positive integers */
@@ -380,7 +356,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		break;
 	case 5: //search for books by author
 		stSQL = "By_Author ";
-		cout << "Enter Author ID " << endl;
+		cout << "Enter Author " << endl;
 		cin >> input;
 		stSQL += input;
 
@@ -436,27 +412,83 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Return Damages to a Book if Any";
 		query.second = stSQL;
 		break;
-	case 11: //add book by genre
+	case 11:
+		stSQL = "Genre_Info ";
+		cout << "Enter Genre" << endl;
+		cin >> input;
+		stSQL += input;
 
-		break;
-	case 12: //give a fine to a library user
 
+		query.first = "#Return books in Genre";
+		query.second = stSQL;
 		break;
-	case 13: //get info for user by library card id
+	case 12:
+		stSQL = "Give_Fine ";
+		cout << "Enter Book ID" << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter Card ID" << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter Days OverDue" << endl;
+		cin >> input;
+		stSQL += input;
 
-		break;
-	case 14: //report new book damages
 
+		query.first = "#Give a User a Fine ";
+		query.second = stSQL;
 		break;
-	case 15: //Pay a fine
+	case 13:
+		stSQL = "Library_User_Info ";
+		cout << "Enter Name: " << endl;
+		cin >> input;
+		stSQL += input;
 
-		break;
-	case 16: //return a book to the library
 
+		query.first = "#Return Library User Info by User Name ";
+		query.second = stSQL;
 		break;
-	case 17: //find all unpaid fines for a user
+	case 14:
+		stSQL = "New_Damages ";
+		cout << "Enter Book ID: " << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter Damage Description: " << endl;
+		cin >> input;
+		stSQL += input;
 
+
+		query.first = "#Add New Damage to Book";
+		query.second = stSQL;
 		break;
+	case 15:
+		stSQL = "Pay_Fine ";
+		cout << "Enter Card ID: " << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter Book ID: " << endl;
+		cin >> input;
+		stSQL += input;
+
+
+		query.first = "#Pay a Fine";
+		query.second = stSQL;
+		break;
+	case 16:
+		stSQL = "Return_Book ";
+		cout << "Enter Card ID: " << endl;
+		cin >> input;
+		stSQL += input;
+		
+		query.first = "#Return a Book";
+		query.second = stSQL;
+		break;
+	case 17://return unpaid fines
+	//ADD More CASES
 	default:
 		cout << "Invalid input, will now exit...\n";
 		break;
