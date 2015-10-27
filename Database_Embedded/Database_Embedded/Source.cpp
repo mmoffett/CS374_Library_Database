@@ -26,14 +26,16 @@ int main() {
 	{
 		PrintMenu();
 		int k;
+		int tempvar = 0;
 		cin >> k;
-		while (k > 10 /*number of queries*/)
+		while (k > 20 /*number of queries*/)
 		{
 			cout << "Invalid input, try again!" << endl;
 			cin >> k;
 		}
 		char c = NULL;
 		while (c != 'n' && c != 'N') {
+			if (tempvar == 0) {
 				CallFunctions(k);
 				cout << "Do You want to complete another query (y/n)?" << endl;
 				cin >> c;
@@ -42,9 +44,31 @@ int main() {
 					cout << "Invalid input, try again!" << endl;
 					cin >> c;
 				}
+				tempvar++;
 			}
 
-		if (c == 'n' || c== 'N')
+			else {
+				PrintMenu();
+				cin >> k;
+				while (k > 20 /*number of queries*/)
+				{
+					cout << "Invalid input, try again!" << endl;
+					cin >> k;
+				}
+				CallFunctions(k);
+				cout << "Do You want to complete another query (y/n)?" << endl;
+				cin >> c;
+				while (c != 'y' && c != 'n' && c != 'N' && c != 'Y')
+				{
+					cout << "Invalid input, try again!" << endl;
+					cin >> c;
+				}
+				tempvar++;
+			}
+
+		}
+
+		if (c == 'n' || c == 'N')
 			cont = false;
 	}
 
@@ -134,7 +158,7 @@ void listTables(int queryNum) {
 	SQLCHAR szConnectOut[1024];
 	SQLSMALLINT cchConnect;
 
-	
+
 #ifdef SQLSERVER //connects us to our server if it can
 	string stConnect = "Driver={SQL Server};Server=CS1;";
 	stConnect += "Database=Silence_in_the_Library;Trusted_Connection=yes;";
@@ -381,7 +405,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		cout << "Enter Card ID" << endl;
 		cin >> input;
 		stSQL += input;
-		
+
 
 		query.first = "#Added Book to Books_Checked_Out";
 		query.second = stSQL;
@@ -391,7 +415,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		cout << "Enter Book ID" << endl;
 		cin >> input;
 		stSQL += input;
-		
+
 
 		query.first = "#Return Damages to a Book if Any";
 		query.second = stSQL;
@@ -467,7 +491,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		cout << "Enter Card ID: " << endl;
 		cin >> input;
 		stSQL += input;
-		
+
 		query.first = "#Return a Book";
 		query.second = stSQL;
 		break;
