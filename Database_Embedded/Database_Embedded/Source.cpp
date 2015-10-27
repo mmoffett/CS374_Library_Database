@@ -64,11 +64,11 @@ void PrintMenu()
 	cout << left << "8: Return Date Due if Book is Checked Out" << endl;
 	cout << left << "9: Check Out Book" << endl;
 	cout << left << "10: List damages to a book by title" << endl;
-
 	cout << left << "11:  Search for books by genre " << endl;
 	cout << left << "12: Give a Fine to a Library User" << endl;
 	cout << left << "13:  Get info for user by library card id" << endl;
 	cout << left << "14:  Report New Book Damages" << endl;
+
 	cout << left << "15:  Pay a Fine" << endl;
 	cout << left << "16: Return a Book to the Library" << endl;
 	cout << left << "17: Find all unpaid fines for a user" << endl;
@@ -339,7 +339,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		break;
 	case 5:
 		stSQL = "By_Author ";
-		cout << "Enter Author ID " << endl;
+		cout << "Enter Author " << endl;
 		cin >> input;
 		stSQL += input;
 
@@ -397,6 +397,61 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Return Damages to a Book if Any";
 		query.second = stSQL;
 		break;
+	case 11:
+		stSQL = "Genre_Info ";
+		cout << "Enter Genre" << endl;
+		cin >> input;
+		stSQL += input;
+
+
+		query.first = "#Return books in Genre";
+		query.second = stSQL;
+		break;
+	case 12:
+		stSQL = "Give_Fine ";
+		cout << "Enter Book ID" << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter Card ID" << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter Days OverDue" << endl;
+		cin >> input;
+		stSQL += input;
+
+
+		query.first = "#Give a User a Fine ";
+		query.second = stSQL;
+		break;
+	case 13:
+		stSQL = "Library_User_Info ";
+		cout << "Enter Name: " << endl;
+		cin >> input;
+		stSQL += input;
+
+
+		query.first = "#Return Library User Info by User Name ";
+		query.second = stSQL;
+		break;
+	case 14:
+		stSQL = "New_Damages ";
+		cout << "Enter Book ID: " << endl;
+		cin >> input;
+		stSQL += input;
+		stSQL += ", ";
+		cout << "Enter Damage Description: " << endl;
+		cin >> input;
+		stSQL += input;
+
+
+		query.first = "#Add New Damage to Book";
+		query.second = stSQL;
+		break;
+	case 15:
+	case 16:
+	case 17:
 	//ADD More CASES
 	default:
 		cout << "Invalid input, will now exit...\n";
