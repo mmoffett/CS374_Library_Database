@@ -87,7 +87,6 @@ void PrintMenu()
 	cout << left << "14:  Report New Book Damages" << endl;
 	cout << left << "15:  Pay a Fine" << endl;
 	cout << left << "16: Return a Book to the Library" << endl;
-
 	cout << left << "17: Find all unpaid fines for a user" << endl;
 
 
@@ -122,6 +121,30 @@ void CallFunctions(int userQuery)
 		listTables(userQuery);
 		break;
 	case 9:
+		listTables(userQuery);
+		break;
+	case 10:
+		listTables(userQuery);
+		break;
+	case 11:
+		listTables(userQuery);
+		break;
+	case 12:
+		listTables(userQuery);
+		break;
+	case 13:
+		listTables(userQuery);
+		break;
+	case 14:
+		listTables(userQuery);
+		break;
+	case 15:
+		listTables(userQuery);
+		break;
+	case 16:
+		listTables(userQuery);
+		break;
+	case 17:
 		listTables(userQuery);
 		break;
 		/*up to case n, where n exists in the positive integers */
