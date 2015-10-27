@@ -508,19 +508,19 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 	case 18:
 		stSQL = "SELECT * FROM Books_Out";
 
-		query.first = "#Return Books Checked Out";
+		query.first = "18~ID~Date_Out";
 		query.second = stSQL;
 		break;
 	case 19:
 		stSQL = "SELECT * FROM Library_Books";
 
-		query.first = "#Return All Library Books";
+		query.first = "19~BookTitle~Genre_ID~AuthorFirstName~AuthorLastName~Publisher";
 		query.second = stSQL;
 		break;
 	case 20:
 		stSQL = "SELECT * FROM Overdue_Books";
 
-		query.first = "#Return Overdue Books";
+		query.first = "20~BookID";
 		query.second = stSQL;
 		break;
 	default:
