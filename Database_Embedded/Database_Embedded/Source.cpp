@@ -107,6 +107,30 @@ void CallFunctions(int userQuery)
 	case 9:
 		listTables(userQuery);
 		break;
+	case 10:
+		listTables(userQuery);
+		break;
+	case 11:
+		listTables(userQuery);
+		break;
+	case 12:
+		listTables(userQuery);
+		break;
+	case 13:
+		listTables(userQuery);
+		break;
+	case 14:
+		listTables(userQuery);
+		break;
+	case 15:
+		listTables(userQuery);
+		break;
+	case 16:
+		listTables(userQuery);
+		break;
+	case 17:
+		listTables(userQuery);
+		break;
 		/*up to case n, where n exists in the positive integers */
 	default: cout << "Invalid selection, please re-select.\n";
 	}
@@ -397,7 +421,27 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		query.first = "#Return Damages to a Book if Any";
 		query.second = stSQL;
 		break;
-	//ADD More CASES
+	case 11: //add book by genre
+
+		break;
+	case 12: //give a fine to a library user
+
+		break;
+	case 13: //get info for user by library card id
+
+		break;
+	case 14: //report new book damages
+
+		break;
+	case 15: //Pay a fine
+
+		break;
+	case 16: //return a book to the library
+
+		break;
+	case 17: //find all unpaid fines for a user
+
+		break;
 	default:
 		cout << "Invalid input, will now exit...\n";
 		break;
