@@ -382,7 +382,7 @@ pair<string, string> GetQuery(int choice) { // maybe do some NULL exception hand
 		cin >> input;
 		stSQL += input;
 
-		query.first = "#Find Books By Author";
+		query.first = "Find Books By Author";
 		query.second = stSQL;
 		break;
 	case 6: //get the author of a book by title
