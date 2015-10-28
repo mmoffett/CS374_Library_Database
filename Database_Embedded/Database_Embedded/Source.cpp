@@ -210,7 +210,7 @@ void listTables(int queryNum) {
 
 
 	if (temp[0] != '#') {
-		for (int i = 0; i < temp.length(); i++) {
+		for (int i = 0; i < temp.length(); i++) { // Adds spaces to the string that holds the table information (# of columns, titles)
 			if (temp[i] == '~') {
 				temp[i] = ' ';
 			}
@@ -218,10 +218,10 @@ void listTables(int queryNum) {
 		stringstream ss(temp);
 		string t;
 		while (ss >> t) {
-			columnVec.push_back(t);
+			columnVec.push_back(t); // Adds the title of the columns to a vector
 		}
 
-		numColumns = atoi(columnVec[0].c_str());
+		numColumns = atoi(columnVec[0].c_str()); // Converts the number of column string to an int
 	}
 
 
@@ -257,27 +257,27 @@ void listTables(int queryNum) {
 	int curr = 0;
 
 	if (columnVec.size() != NULL) {
-		for (int i = 1; i <= numColumns; i++) {
+		for (int i = 1; i <= numColumns; i++) { // Loops through the vector containing the column titles, and prints them to the screen
 			if (i == 1) {
-				cout << left << setw(30) << columnVec[i];
+				cout << left << setw(25) << columnVec[i];
 			}
 			else {
-				cout << right << setw(30) << columnVec[i];
+				cout << right << setw(25) << columnVec[i];
 			}
 		}
 	}
-	
+	bool first = true;
+
 	cout << endl << endl;
-	while (rc == SQL_SUCCESS) {
+	while (rc == SQL_SUCCESS) { // Retrieves the data based on the query, and prints it to the screen
 		string last = "";
 		rc = SQLFetch(hstmt);
-		bool first = true;
 		while (curr <= numColumns) {
 			if (SQLGetData(hstmt, curr++, SQL_C_CHAR, szData, sizeof(szData), &cbData) == SQL_SUCCESS) {
 				if (first) {
-					std::cout << std::left << std::setw(10) << szData;
-					first = false;
+					std::cout << std::right << std::setw(10) << szData;
 					last = szData;
+					first = false;
 				}
 				else {
 					if (!(last == szData)) {
@@ -331,8 +331,8 @@ pair<string, string> GetQuery(int choice) {
 		getline(cin, input);
 		stSQL += "'" + input + "'";
 
-		query.first = "#Added Author Without Publisher";
-		query.second = stSQL;
+		query.first = "#Added Author Without Publisher"; // What the query does
+		query.second = stSQL; // The actual query
 		break;
 	case 2:
 		stSQL = "Add_Author_Publisher ";
@@ -350,8 +350,8 @@ pair<string, string> GetQuery(int choice) {
 		getline(cin, input);
 		stSQL += "'" + input + "'";
 
-		query.first = "#Added Author With Publisher";
-		query.second = stSQL;
+		query.first = "#Added Author With Publisher";// What the query does
+		query.second = stSQL; // The actual query
 		break;
 	case 3:
 		stSQL = "Add_Book ";
@@ -376,8 +376,8 @@ pair<string, string> GetQuery(int choice) {
 		getline(cin, input);
 		stSQL += "'" + input + "'";
 
-		query.first = "#Added Book";
-		query.second = stSQL;
+		query.first = "#Added Book"; // What the query does
+		query.second = stSQL; // The actual query
 		break;
 	case 4:
 		stSQL = "Add_USER ";
@@ -411,8 +411,8 @@ pair<string, string> GetQuery(int choice) {
 		getline(cin, input);
 		stSQL += "'" + input + "'";
 
-		query.first = "#Added User";
-		query.second = stSQL;
+		query.first = "#Added User"; // What the query does
+		query.second = stSQL; // The actual query
 		break;
 	case 5:
 		stSQL = "By_Author ";
@@ -422,8 +422,8 @@ pair<string, string> GetQuery(int choice) {
 		getline(cin, input);
 		stSQL += "'" + input + "'";
 
-		query.first = "5~BookTitle~AuthorFirstName~AuthorLastName~Genre~Pages";
-		query.second = stSQL;
+		query.first = "5~BookTitle~AuthorFirstName~AuthorLastName~Genre~Pages"; // The table information (# of columns, column titles)
+		query.second = stSQL; // The actual query
 		break;
 	case 6:
 		stSQL = "Author_of_Book ";
@@ -433,8 +433,8 @@ pair<string, string> GetQuery(int choice) {
 		getline(cin, input);
 		stSQL += "'" + input + "'";
 
-		query.first = "2~AuthorFirstName~AuthorLastName";
-		query.second = stSQL;
+		query.first = "2~AuthorFirstName~AuthorLastName"; // The table information 
+		query.second = stSQL; // The actual query
 		break;
 	case 7:
 		stSQL = "Book_By_Title ";
@@ -444,8 +444,8 @@ pair<string, string> GetQuery(int choice) {
 		getline(cin, input);
 		stSQL += "'" + input + "'";
 
-		query.first = "5~BookTitle~AuthorFirstName~AuthorLastName~Genre~Pages";
-		query.second = stSQL;
+		query.first = "5~BookTitle~AuthorFirstName~AuthorLastName~Genre~Pages"; // The table information
+		query.second = stSQL; // The actual query
 		break;
 	case 8:
 		stSQL = "Book_Checked_Out ";
@@ -455,8 +455,8 @@ pair<string, string> GetQuery(int choice) {
 		getline(cin, input);
 		stSQL += "'" + input + "'";
 
-		query.first = "1~Date_Due";
-		query.second = stSQL;
+		query.first = "1~Date_Due"; // The table information
+		query.second = stSQL; // The actual query
 		break;
 	case 9:
 		stSQL = "Check_Out_Book ";
@@ -471,8 +471,8 @@ pair<string, string> GetQuery(int choice) {
 		stSQL += "'" + input + "'";
 
 
-		query.first = "#Added Book to Books_Checked_Out";
-		query.second = stSQL;
+		query.first = "#Added Book to Books_Checked_Out"; // What the query does
+		query.second = stSQL; // The actual query
 		break;
 	case 10:
 		stSQL = "Find_Damages ";
@@ -483,8 +483,8 @@ pair<string, string> GetQuery(int choice) {
 		stSQL += "'" + input + "'";
 
 
-		query.first = "3~Damage_ID~Book_ID~Damages";
-		query.second = stSQL;
+		query.first = "3~Damage_ID~Book_ID~Damages"; // The table information
+		query.second = stSQL; // The actual query
 		break;
 	case 11:
 		stSQL = "Genre_Info ";
@@ -495,8 +495,8 @@ pair<string, string> GetQuery(int choice) {
 		stSQL += "'" + input + "'";
 
 
-		query.first = "4~Genre_ID~BookTitle~AuthorFirstName~AuthorLastName";
-		query.second = stSQL;
+		query.first = "4~Genre_ID~BookTitle~AuthorFirstName~AuthorLastName"; // The table information
+		query.second = stSQL; // The actual query
 		break;
 	case 12:
 		stSQL = "Give_Fine ";
@@ -515,8 +515,8 @@ pair<string, string> GetQuery(int choice) {
 		stSQL += "'" + input + "'";
 
 
-		query.first = "#Give a User a Fine ";
-		query.second = stSQL;
+		query.first = "#Give a User a Fine ";// What the query does
+		query.second = stSQL; // The actual query
 		break;
 	case 13:
 		stSQL = "Library_User_Info ";
@@ -527,8 +527,8 @@ pair<string, string> GetQuery(int choice) {
 		stSQL += "'" + input + "'";
 
 
-		query.first = "9~Card_ID~FirstName~LastName~HomeAddress~Phone~Email~UserType~DriversLicense~NumberOfBooks";
-		query.second = stSQL;
+		query.first = "9~Card_ID~FirstName~LastName~HomeAddress~Phone~Email~UserType~DriversLicense~NumberOfBooks"; // The table information
+		query.second = stSQL; // The actual query
 		break;
 	case 14:
 		stSQL = "New_Damages ";
@@ -543,8 +543,8 @@ pair<string, string> GetQuery(int choice) {
 		stSQL += "'" + input + "'";
 
 
-		query.first = "#Add New Damage to Book";
-		query.second = stSQL;
+		query.first = "#Add New Damage to Book"; // What the query does
+		query.second = stSQL; // The actual query
 		break;
 	case 15:
 		stSQL = "Pay_Fine ";
@@ -559,8 +559,8 @@ pair<string, string> GetQuery(int choice) {
 		stSQL += "'" + input + "'";
 
 
-		query.first = "#Pay a Fine";
-		query.second = stSQL;
+		query.first = "#Pay a Fine"; // What the query does
+		query.second = stSQL; // The actual query
 		break;
 	case 16:
 		stSQL = "Return_Book ";
@@ -570,8 +570,8 @@ pair<string, string> GetQuery(int choice) {
 		getline(cin, input);
 		stSQL += "'" + input + "'";
 
-		query.first = "#Return a Book";
-		query.second = stSQL;
+		query.first = "#Return a Book"; // What the query does
+		query.second = stSQL;// The actual query
 		break;
 	case 17:
 		stSQL = "Unpaid_By_User ";
@@ -582,26 +582,26 @@ pair<string, string> GetQuery(int choice) {
 		stSQL += "'" + input + "'";
 
 
-		query.first = "3~BookTitle~DaysOverdue~DaysOverdue";
-		query.second = stSQL;
+		query.first = "3~BookTitle~DaysOverdue~DaysOverdue"; // The table information
+		query.second = stSQL;// The actual query
 		break;
 	case 18:
 		stSQL = "SELECT * FROM Books_Out";
 
-		query.first = "2~ID~Date_Out";
-		query.second = stSQL;
+		query.first = "2~ID~Date_Out"; // The table information
+		query.second = stSQL;// The actual query
 		break;
 	case 19:
 		stSQL = "SELECT * FROM Library_Books";
 
-		query.first = "5~BookTitle~Genre_ID~AuthorFirstName~AuthorLastName~Publisher";
-		query.second = stSQL;
+		query.first = "5~BookTitle~Genre_ID~AuthorFirstName~AuthorLastName~Publisher"; // The table information
+		query.second = stSQL; // The actual query
 		break;
 	case 20:
 		stSQL = "SELECT * FROM Overdue_Books";
 
-		query.first = "1~BookID";
-		query.second = stSQL;
+		query.first = "1~BookID"; // The table information
+		query.second = stSQL; // The actual query
 		break;
 	default:
 		cout << "Invalid input, will now exit...\n";
