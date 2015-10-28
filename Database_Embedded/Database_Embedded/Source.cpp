@@ -361,26 +361,18 @@ pair<string, string> GetQuery(int choice) {
 		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Genre ID" << endl;
-		cin.clear();
-		cin.ignore(256, '\n');
 		getline(cin, input);
 		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Title " << endl;
-		cin.clear();
-		cin.ignore(256, '\n');
 		getline(cin, input);
 		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Pages " << endl;
-		cin.clear();
-		cin.ignore(256, '\n');
 		getline(cin, input);
 		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter ISBN " << endl;
-		cin.clear();
-		cin.ignore(256, '\n');
 		getline(cin, input);
 		stSQL += "'" + input + "'";
 
