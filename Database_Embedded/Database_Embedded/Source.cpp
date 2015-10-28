@@ -259,10 +259,10 @@ void listTables(int queryNum) {
 	if (columnVec.size() != NULL) {
 		for (int i = 1; i <= numColumns; i++) {
 			if (i == 1) {
-				cout << left << setw(25) << columnVec[i];
+				cout << left << setw(30) << columnVec[i];
 			}
 			else {
-				cout << right << setw(25) << columnVec[i];
+				cout << right << setw(30) << columnVec[i];
 			}
 		}
 	}
