@@ -322,7 +322,8 @@ pair<string, string> GetQuery(int choice) {
 	case 1:
 		stSQL = "Add_Author_NoPublisher ";
 		cout << "Enter Author First Name" << endl;
-		cin.ignore();
+		cin.clear();
+		cin.ignore(256, '\n');
 		getline(cin, input);
 		stSQL += "'" + input + "'";
 		stSQL += ", ";
@@ -336,17 +337,17 @@ pair<string, string> GetQuery(int choice) {
 	case 2:
 		stSQL = "Add_Author_Publisher ";
 		cout << "Enter Author First Name" << endl;
-		cin.ignore();
+		cin.clear();
+		cin.ignore(256, '\n');
 		getline(cin, input);
 		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Author Last Name" << endl;
-		cin.ignore(); 
 		getline(cin, input);
 		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Publisher: " << endl;
-		cin.ignore();
+		getline(cin, input);
 		stSQL += "'" + input + "'";
 
 		query.first = "#Added Author With Publisher";
@@ -355,26 +356,32 @@ pair<string, string> GetQuery(int choice) {
 	case 3:
 		stSQL = "Add_Book ";
 		cout << "Enter Author ID" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.clear();
+		cin.ignore(256, '\n'); getline(cin, input);
 		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Genre ID" << endl;
-		cin.ignore();
+		cin.clear();
+		cin.ignore(256, '\n');
 		getline(cin, input);
 		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Title " << endl;
-		cin.ignore();
+		cin.clear();
+		cin.ignore(256, '\n');
 		getline(cin, input);
 		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Pages " << endl;
-		cin.ignore();
+		cin.clear();
+		cin.ignore(256, '\n');
 		getline(cin, input);
 		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter ISBN " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.clear();
+		cin.ignore(256, '\n');
+		getline(cin, input);
 		stSQL += "'" + input + "'";
 
 		query.first = "#Added Book";
@@ -383,7 +390,8 @@ pair<string, string> GetQuery(int choice) {
 	case 4:
 		stSQL = "Add_USER ";
 		cout << "Enter User First Name" << endl;
-		cin.ignore(); 
+		cin.clear();
+		cin.ignore(256, '\n');
 		getline(cin, input);
 		stSQL += "'" + input + "'";
 		stSQL += ", ";
@@ -417,7 +425,9 @@ pair<string, string> GetQuery(int choice) {
 	case 5:
 		stSQL = "By_Author ";
 		cout << "Enter Author " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.clear();
+		cin.ignore(256, '\n');
+		getline(cin, input);
 		stSQL += "'" + input + "'";
 
 		query.first = "5~BookTitle~AuthorFirstName~AuthorLastName~Genre~Pages";
@@ -426,7 +436,9 @@ pair<string, string> GetQuery(int choice) {
 	case 6:
 		stSQL = "Author_of_Book ";
 		cout << "Enter Book " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.clear();
+		cin.ignore(256, '\n');
+		getline(cin, input);
 		stSQL += "'" + input + "'";
 
 		query.first = "2~AuthorFirstName~AuthorLastName";
@@ -435,7 +447,9 @@ pair<string, string> GetQuery(int choice) {
 	case 7:
 		stSQL = "Book_By_Title ";
 		cout << "Enter Part or All of Book Title" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.clear();
+		cin.ignore(256, '\n');
+		getline(cin, input);
 		stSQL += "'" + input + "'";
 
 		query.first = "5~BookTitle~AuthorFirstName~AuthorLastName~Genre~Pages";
@@ -444,7 +458,9 @@ pair<string, string> GetQuery(int choice) {
 	case 8:
 		stSQL = "Book_Checked_Out ";
 		cout << "Enter Book ID" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.clear();
+		cin.ignore(256, '\n');
+		getline(cin, input);
 		stSQL += "'" + input + "'";
 
 		query.first = "1~Date_Due";
@@ -453,7 +469,9 @@ pair<string, string> GetQuery(int choice) {
 	case 9:
 		stSQL = "Check_Out_Book ";
 		cout << "Enter Book ID" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.clear();
+		cin.ignore(256, '\n');
+		getline(cin, input);
 		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Card ID" << endl;
@@ -467,7 +485,9 @@ pair<string, string> GetQuery(int choice) {
 	case 10:
 		stSQL = "Find_Damages ";
 		cout << "Enter Book ID" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.clear();
+		cin.ignore(256, '\n');
+		getline(cin, input);
 		stSQL += "'" + input + "'";
 
 
@@ -477,7 +497,9 @@ pair<string, string> GetQuery(int choice) {
 	case 11:
 		stSQL = "Genre_Info ";
 		cout << "Enter Genre" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.clear();
+		cin.ignore(256, '\n');
+		getline(cin, input);
 		stSQL += "'" + input + "'";
 
 
@@ -487,7 +509,9 @@ pair<string, string> GetQuery(int choice) {
 	case 12:
 		stSQL = "Give_Fine ";
 		cout << "Enter Book ID" << endl;
-		cin.ignore(); getline(cin, input);
+		cin.clear();
+		cin.ignore(256, '\n');
+		getline(cin, input);
 		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Card ID" << endl;
@@ -505,7 +529,9 @@ pair<string, string> GetQuery(int choice) {
 	case 13:
 		stSQL = "Library_User_Info ";
 		cout << "Enter Name: " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.clear();
+		cin.ignore(256, '\n');
+		getline(cin, input);
 		stSQL += "'" + input + "'";
 
 
@@ -515,7 +541,9 @@ pair<string, string> GetQuery(int choice) {
 	case 14:
 		stSQL = "New_Damages ";
 		cout << "Enter Book ID: " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.clear();
+		cin.ignore(256, '\n');
+		getline(cin, input);
 		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Damage Description: " << endl;
@@ -529,7 +557,9 @@ pair<string, string> GetQuery(int choice) {
 	case 15:
 		stSQL = "Pay_Fine ";
 		cout << "Enter Card ID: " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.clear();
+		cin.ignore(256, '\n');
+		getline(cin, input);
 		stSQL += "'" + input + "'";
 		stSQL += ", ";
 		cout << "Enter Book ID: " << endl;
@@ -543,7 +573,9 @@ pair<string, string> GetQuery(int choice) {
 	case 16:
 		stSQL = "Return_Book ";
 		cout << "Enter Book ID: " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.clear();
+		cin.ignore(256, '\n');
+		getline(cin, input);
 		stSQL += "'" + input + "'";
 
 		query.first = "#Return a Book";
@@ -552,7 +584,9 @@ pair<string, string> GetQuery(int choice) {
 	case 17:
 		stSQL = "Unpaid_By_User ";
 		cout << "Enter Card ID: " << endl;
-		cin.ignore(); getline(cin, input);
+		cin.clear();
+		cin.ignore(256, '\n');
+		getline(cin, input);
 		stSQL += "'" + input + "'";
 
 
